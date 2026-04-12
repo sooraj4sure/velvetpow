@@ -1102,6 +1102,8 @@ function FinishStep({
 
 // ─── Get Featured Modal ──────────────────────────────────────────────────────
 
+
+
 function FeaturedModal({ open, onClose }) {
   const [files, setFiles] = useState([]);
   const [petName, setPetName] = useState("");
@@ -1123,7 +1125,12 @@ function FeaturedModal({ open, onClose }) {
     fd.append("petName", petName);
     fd.append("breed", breed);
     fd.append("caption", caption);
-    files.forEach((f) => fd.append("media", f));
+    files.forEach((f) => fd.append("media", f.file));
+
+    // Temp debug — check FormData has files
+  for (let [key, val] of fd.entries()) {
+    console.log(key, val);
+  }
     try {
       // POST to /api/featured with multipart form
       await fetch(`${import.meta.env.VITE_API_URL}/api/featured`, {
