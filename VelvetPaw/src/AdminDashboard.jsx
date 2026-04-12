@@ -222,8 +222,8 @@ const css = `
   }
 `;
 
-const API = 'http://localhost:5000';
-const ADMIN_PASSWORD = 'velvetpaw2025'; // change this
+// const API = 'http://localhost:5000';
+const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -244,13 +244,56 @@ function DetailRow({ label, value }) {
 
 // ─── Login ───────────────────────────────────────────────────────────────────
 
+// function Login({ onLogin }) {
+//   const [pw, setPw] = useState('');
+//   const [err, setErr] = useState('');
+//   const submit = () => {
+//     if (pw === ADMIN_PASSWORD) onLogin();
+//     else setErr('Incorrect password. Try again.');
+//   };
+//   return (
+//     <div className="login-wrap">
+//       <div className="login-box">
+//         <div className="login-logo">VelvetPaw</div>
+//         <div className="login-sub">Admin Portal</div>
+//         <label className="login-label">Admin Password</label>
+//         <input className="login-input" type="password" placeholder="Enter password"
+//           value={pw} onChange={e=>setPw(e.target.value)}
+//           onKeyDown={e=>e.key==='Enter'&&submit()} />
+//         <button className="login-btn" onClick={submit}>Enter Dashboard →</button>
+//         {err && <div className="login-error">{err}</div>}
+//       </div>
+//     </div>
+//   );
+// }
+
+
 function Login({ onLogin }) {
   const [pw, setPw] = useState('');
   const [err, setErr] = useState('');
-  const submit = () => {
-    if (pw === ADMIN_PASSWORD) onLogin();
-    else setErr('Incorrect password. Try again.');
+  const [loading, setLoading] = useState(false);
+
+  const submit = async () => {
+    setLoading(true);
+    setErr('');
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      });
+      const data = await res.json();
+      if (data.success) {
+        onLogin();
+      } else {
+        setErr('Incorrect password. Try again.');
+      }
+    } catch {
+      setErr('Could not connect to server.');
+    }
+    setLoading(false);
   };
+
   return (
     <div className="login-wrap">
       <div className="login-box">
@@ -260,12 +303,16 @@ function Login({ onLogin }) {
         <input className="login-input" type="password" placeholder="Enter password"
           value={pw} onChange={e=>setPw(e.target.value)}
           onKeyDown={e=>e.key==='Enter'&&submit()} />
-        <button className="login-btn" onClick={submit}>Enter Dashboard →</button>
+        <button className="login-btn" onClick={submit} disabled={loading}>
+          {loading ? 'Verifying...' : 'Enter Dashboard →'}
+        </button>
         {err && <div className="login-error">{err}</div>}
       </div>
     </div>
   );
 }
+
+
 
 // ─── Submissions Tab ──────────────────────────────────────────────────────────
 

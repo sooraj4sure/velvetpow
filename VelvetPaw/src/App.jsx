@@ -664,7 +664,7 @@ function JoinModal({ open, onClose }) {
     const payload = { contact, lifestyle, personality, products, petCategory, earlyAccess };
     try {
       // POST to your Node.js backend: POST /api/submissions
-      await fetch('/api/submissions', {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/submissions`, {
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify(payload)
@@ -876,7 +876,7 @@ function FeaturedModal({ open, onClose }) {
     files.forEach(f => fd.append('media', f.file));
     try {
       // POST to /api/featured with multipart form
-      await fetch('/api/featured', { method:'POST', body:fd });
+      await fetch(`${import.meta.env.VITE_API_URL}/api/featured`, { method:'POST', body:fd });
     } catch(_) {}
     setSubmitted(true);
   };
@@ -968,7 +968,7 @@ export default function App() {
 
   // Fetch live featured pets from backend
   useEffect(() => {
-    fetch('/api/featured/active')
+    fetch(`${import.meta.env.VITE_API_URL}/api/featured/active`)
       .then(r => r.json())
       .then(data => {
         const items = data.map((m, i) => ({
@@ -978,7 +978,7 @@ export default function App() {
           breed: m.breed || '',
           caption: m.caption || '',
           img: m.files?.[0]
-            ? `http://localhost:5000/uploads/${m.files[0].split(/[\\/]/).pop()}`
+            ? `https://velvetpow.onrender.com/uploads/${m.files[0].split(/[\\/]/).pop()}`
             : null,
         }));
         setMediaItems(items);
