@@ -17,17 +17,6 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-// router.post('/', upload.array('media', 5), async (req, res) => {
-//   try {
-//     const { petName, breed, caption } = req.body;
-//     const files = req.files.map(f => f.path); // Cloudinary URL
-//     const doc = await FeaturedMedia.create({ petName, breed, caption, files });
-//     res.status(201).json({ success: true, id: doc._id });
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// });
-
 router.post('/', upload.array('media', 5), async (req, res) => {
   try {
     console.log("BODY:", req.body);
@@ -39,7 +28,7 @@ router.post('/', upload.array('media', 5), async (req, res) => {
       return res.status(400).json({ error: "No files uploaded" });
     }
 
-    const files = req.files.map(f => f.path || f.secure_url);
+    const files = req.files.map(f => f.secure_url || f.path);
 
     const doc = await FeaturedMedia.create({
       petName,

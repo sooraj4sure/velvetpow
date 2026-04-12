@@ -1123,7 +1123,7 @@ function FeaturedModal({ open, onClose }) {
     fd.append("petName", petName);
     fd.append("breed", breed);
     fd.append("caption", caption);
-    files.forEach((f) => fd.append("media", f.file));
+    files.forEach((f) => fd.append("media", f));
     try {
       // POST to /api/featured with multipart form
       await fetch(`${import.meta.env.VITE_API_URL}/api/featured`, {

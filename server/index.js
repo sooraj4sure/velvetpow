@@ -10,10 +10,19 @@ const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) => {
   res.send('Backend is running 🚀');
 });
-app.use(cors({ 
-  origin: ['https://velvetpow.vercel.app','http://localhost:5173'],
-  credentials: true 
-}));  // your Vite frontend
+
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://velvetpow.vercel.app'   // ← your actual Vercel URL
+  ],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+
+
+// your Vite frontend
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
