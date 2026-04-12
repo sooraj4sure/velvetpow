@@ -225,6 +225,16 @@ const css = `
 // const API = 'http://localhost:5000';
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
+const getImage = (file) => {
+  if (!file) return "";
+
+  if (file.startsWith("http")) return file;
+
+  if (!file.startsWith("/")) file = "/" + file;
+
+  return `${API}${file}`;
+};
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function fmt(date) {
@@ -597,7 +607,7 @@ function MediaTab({ media, loading, onToggleFeature, onDelete }) {
                       m.files?.[0]
                         ? m.files[0].startsWith("http")
                           ? m.files[0]
-                          : `${API}${m.files[0]}`
+                          : `${API}/${m.files[0].replace(/^\/+/, "")}`
                         : ""
                     }
                     alt={m.petName}
