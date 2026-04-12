@@ -402,16 +402,16 @@ const css = `
 // ─── Data ───────────────────────────────────────────────────────────────────
 
 const PET_PERSONALITIES = [
-  { name:"Guardian", tag:"Love at the door" },
-  { name:"Wanderer", tag:"World in scent" },
-  { name:"Joyful One", tag:"A tail is a welcome" },
-  { name:"Old Soul", tag:"Already home" },
-  { name:"Healer", tag:"Quiet as medicine" },
-  { name:"Wild One", tag:"The house is a cage" },
-  { name:"Dreamer", tag:"The couch is a cathedral" },
-  { name:"Keeper", tag:"Where we go, you stay" },
-  { name:"Trickster", tag:"Rules are suggestions" },
-  { name:"Gentle Giant", tag:"Softness is enormous" },
+  { name: "Guardian", tag: "Love at the door" },
+  { name: "Wanderer", tag: "World in scent" },
+  { name: "Joyful One", tag: "A tail is a welcome" },
+  { name: "Old Soul", tag: "Already home" },
+  { name: "Healer", tag: "Quiet as medicine" },
+  { name: "Wild One", tag: "The house is a cage" },
+  { name: "Dreamer", tag: "The couch is a cathedral" },
+  { name: "Keeper", tag: "Where we go, you stay" },
+  { name: "Trickster", tag: "Rules are suggestions" },
+  { name: "Gentle Giant", tag: "Softness is enormous" },
 ];
 
 const STEPS = ["Contact", "Lifestyle", "Personality", "Products", "Finish"];
@@ -419,134 +419,149 @@ const STEPS = ["Contact", "Lifestyle", "Personality", "Products", "Finish"];
 const QUESTIONS = {
   lifestyle: [
     {
-      id:"vacation", label:"Lifestyle · 1 of 5",
-      text:"How do you arrange for your pet when you vacation?",
-      options:[
-        { key:"A", text:"Friend or neighbor" },
-        { key:"B", text:"Standard kennel" },
-        { key:"C", text:"Boutique boarding with webcams & suites" },
-        { key:"D", text:"Comes with us to our second home" },
-      ]
+      id: "vacation",
+      label: "Lifestyle · 1 of 5",
+      text: "How do you arrange for your pet when you vacation?",
+      options: [
+        { key: "A", text: "Friend or neighbor" },
+        { key: "B", text: "Standard kennel" },
+        { key: "C", text: "Boutique boarding with webcams & suites" },
+        { key: "D", text: "Comes with us to our second home" },
+      ],
     },
     {
-      id:"food", label:"Lifestyle · 2 of 5",
-      text:"What is your current approach to your pet's nutrition?",
-      options:[
-        { key:"A", text:"Vet-recommended premium kibble" },
-        { key:"B", text:"Fresh / frozen human-grade delivery service" },
-        { key:"C", text:"Rotating raw or gently cooked proteins" },
-        { key:"D", text:"Homemade meals with a veterinary nutritionist plan" },
-      ]
+      id: "food",
+      label: "Lifestyle · 2 of 5",
+      text: "What is your current approach to your pet's nutrition?",
+      options: [
+        { key: "A", text: "Vet-recommended premium kibble" },
+        { key: "B", text: "Fresh / frozen human-grade delivery service" },
+        { key: "C", text: "Rotating raw or gently cooked proteins" },
+        {
+          key: "D",
+          text: "Homemade meals with a veterinary nutritionist plan",
+        },
+      ],
     },
     {
-      id:"spend", label:"Lifestyle · 3 of 5",
-      text:"How much do you spend on your pet monthly?",
-      options:[
-        { key:"A", text:"₹0 – 5,000" },
-        { key:"B", text:"₹5,000 – 10,000" },
-        { key:"C", text:"₹10,000 – 15,000" },
-        { key:"D", text:"₹15,000+" },
-      ]
+      id: "spend",
+      label: "Lifestyle · 3 of 5",
+      text: "How much do you spend on your pet monthly?",
+      options: [
+        { key: "A", text: "₹0 – 5,000" },
+        { key: "B", text: "₹5,000 – 10,000" },
+        { key: "C", text: "₹10,000 – 15,000" },
+        { key: "D", text: "₹15,000+" },
+      ],
     },
     {
-      id:"purchases", label:"Lifestyle · 4 of 5",
-      text:"Which of these have you purchased in the last 12 months?",
-      multi:true,
-      options:[
-        { key:"A", text:"Bed over ₹15,000" },
-        { key:"B", text:"DNA + health screening" },
-        { key:"C", text:"Designer collar (non-pet brand)" },
-        { key:"D", text:"Professional pet photography session" },
-      ]
+      id: "purchases",
+      label: "Lifestyle · 4 of 5",
+      text: "Which of these have you purchased in the last 12 months?",
+      multi: true,
+      options: [
+        { key: "A", text: "Bed over ₹15,000" },
+        { key: "B", text: "DNA + health screening" },
+        { key: "C", text: "Designer collar (non-pet brand)" },
+        { key: "D", text: "Professional pet photography session" },
+      ],
     },
     {
-      id:"car", label:"Lifestyle · 5 of 5",
-      text:"What is your car setup for your pet?",
-      options:[
-        { key:"A", text:"Backseat cover" },
-        { key:"B", text:"Custom-fitted SUV liner + crash harness" },
-        { key:"C", text:"Crate secured in cargo area" },
-        { key:"D", text:"They ride shotgun" },
-      ]
+      id: "car",
+      label: "Lifestyle · 5 of 5",
+      text: "What is your car setup for your pet?",
+      options: [
+        { key: "A", text: "Backseat cover" },
+        { key: "B", text: "Custom-fitted SUV liner + crash harness" },
+        { key: "C", text: "Crate secured in cargo area" },
+        { key: "D", text: "They ride shotgun" },
+      ],
     },
   ],
   personality: [
     {
-      id:"phrase", label:"Personality · 1 of 5",
-      text:"Pick the phrase that fits your pet best:",
-      options:[
-        { key:"A", text:"First to the door. Every. Single. Time." },
-        { key:"B", text:"Nose down. The world is fascinating." },
-        { key:"C", text:"Tail never stops. Joy is the default." },
-        { key:"D", text:"Old soul. Wise beyond years." },
-        { key:"E", text:"Calm presence. Soothes everyone." },
-        { key:"F", text:"Needs to RUN. Walls feel tight." },
-        { key:"G", text:"Couch is life. Luxury is required." },
-        { key:"H", text:"Shadows you. Silent guardian." },
-        { key:"I", text:"Rules? Cute. I make my own." },
-        { key:"J", text:"Big. Soft. Gentle giant." },
-      ]
+      id: "phrase",
+      label: "Personality · 1 of 5",
+      text: "Pick the phrase that fits your pet best:",
+      options: [
+        { key: "A", text: "First to the door. Every. Single. Time." },
+        { key: "B", text: "Nose down. The world is fascinating." },
+        { key: "C", text: "Tail never stops. Joy is the default." },
+        { key: "D", text: "Old soul. Wise beyond years." },
+        { key: "E", text: "Calm presence. Soothes everyone." },
+        { key: "F", text: "Needs to RUN. Walls feel tight." },
+        { key: "G", text: "Couch is life. Luxury is required." },
+        { key: "H", text: "Shadows you. Silent guardian." },
+        { key: "I", text: "Rules? Cute. I make my own." },
+        { key: "J", text: "Big. Soft. Gentle giant." },
+      ],
     },
     {
-      id:"doorbell", label:"Personality · 2 of 5",
-      text:"Doorbell rings during your Zoom call. Your pet:",
-      options:[
-        { key:"A", text:"One deep sound, then checks with you" },
-        { key:"B", text:"Silent, appears on screen to charm everyone" },
-        { key:"C", text:"Stays close, sensing your stress" },
-        { key:"D", text:"Ignores it completely" },
-      ]
+      id: "doorbell",
+      label: "Personality · 2 of 5",
+      text: "Doorbell rings during your Zoom call. Your pet:",
+      options: [
+        { key: "A", text: "One deep sound, then checks with you" },
+        { key: "B", text: "Silent, appears on screen to charm everyone" },
+        { key: "C", text: "Stays close, sensing your stress" },
+        { key: "D", text: "Ignores it completely" },
+      ],
     },
     {
-      id:"restaurant", label:"Personality · 3 of 5",
-      text:"At a nice outdoor restaurant, your pet is:",
-      options:[
-        { key:"A", text:"Exploring every scent" },
-        { key:"B", text:"Calm and perfectly composed" },
-        { key:"C", text:"Energetic and wonderfully social" },
-        { key:"D", text:"Well-behaved and quietly observant" },
-      ]
+      id: "restaurant",
+      label: "Personality · 3 of 5",
+      text: "At a nice outdoor restaurant, your pet is:",
+      options: [
+        { key: "A", text: "Exploring every scent" },
+        { key: "B", text: "Calm and perfectly composed" },
+        { key: "C", text: "Energetic and wonderfully social" },
+        { key: "D", text: "Well-behaved and quietly observant" },
+      ],
     },
     {
-      id:"design", label:"Personality · 4 of 5",
-      text:"Your biggest home design pain point (pet-related)?",
-      options:[
-        { key:"A", text:"Unattractive crate ruining the aesthetic" },
-        { key:"B", text:"Toy clutter everywhere" },
-        { key:"C", text:"Gates that ruin the interior flow" },
-        { key:"D", text:"Bed that doesn't match the décor" },
-      ]
+      id: "design",
+      label: "Personality · 4 of 5",
+      text: "Your biggest home design pain point (pet-related)?",
+      options: [
+        { key: "A", text: "Unattractive crate ruining the aesthetic" },
+        { key: "B", text: "Toy clutter everywhere" },
+        { key: "C", text: "Gates that ruin the interior flow" },
+        { key: "D", text: "Bed that doesn't match the décor" },
+      ],
     },
     {
-      id:"splurge", label:"Personality · 5 of 5",
-      text:"Your splurge mentality when it comes to your pet:",
-      options:[
-        { key:"A", text:'"Family member. They deserve it."' },
-        { key:"B", text:'"Their happiness is worth every rupee."' },
-        { key:"C", text:'"Buy once, buy premium. Always."' },
-      ]
+      id: "splurge",
+      label: "Personality · 5 of 5",
+      text: "Your splurge mentality when it comes to your pet:",
+      options: [
+        { key: "A", text: '"Family member. They deserve it."' },
+        { key: "B", text: '"Their happiness is worth every rupee."' },
+        { key: "C", text: '"Buy once, buy premium. Always."' },
+      ],
     },
   ],
   products: [
     {
-      id:"offleash", label:"Products · 1 of 2",
-      text:"Off-leash in a safe area — your biggest worry?",
-      options:[
-        { key:"A", text:"Rolling in something unpleasant" },
-        { key:"B", text:"Ignoring recall near danger" },
-        { key:"C", text:"Approaching the wrong person or pet" },
-        { key:"D", text:"No worries at all" },
-      ]
+      id: "offleash",
+      label: "Products · 1 of 2",
+      text: "Off-leash in a safe area — your biggest worry?",
+      options: [
+        { key: "A", text: "Rolling in something unpleasant" },
+        { key: "B", text: "Ignoring recall near danger" },
+        { key: "C", text: "Approaching the wrong person or pet" },
+        { key: "D", text: "No worries at all" },
+      ],
     },
     {
-      id:"guests", label:"Products · 2 of 2",
-      text:"Guests staying over — how do you manage your pet?",
-      options:[
-        { key:"A", text:"Let them adjust naturally" },
-        { key:"B", text:"Provide a separate space or crate" },
-        { key:"C", text:"Wish for better training signals" },
-        { key:"D", text:"Use calming aids" },
-      ]
+      id: "guests",
+      label: "Products · 2 of 2",
+      text: "Guests staying over — how do you manage your pet?",
+      options: [
+        { key: "A", text: "Let them adjust naturally" },
+        { key: "B", text: "Provide a separate space or crate" },
+        { key: "C", text: "Wish for better training signals" },
+        { key: "D", text: "Use calming aids" },
+      ],
     },
   ],
 };
@@ -555,11 +570,16 @@ const QUESTIONS = {
 
 function useFadeIn() {
   useEffect(() => {
-    const els = document.querySelectorAll('.fade-in');
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
-    els.forEach(el => obs.observe(el));
+    const els = document.querySelectorAll(".fade-in");
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("visible");
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+    );
+    els.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
 }
@@ -568,8 +588,8 @@ function useScrolled() {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', h);
-    return () => window.removeEventListener('scroll', h);
+    window.addEventListener("scroll", h);
+    return () => window.removeEventListener("scroll", h);
   }, []);
   return scrolled;
 }
@@ -578,13 +598,23 @@ function useScrolled() {
 
 function ProgressSteps({ step }) {
   return (
-    <div style={{ marginBottom:28 }}>
+    <div style={{ marginBottom: 28 }}>
       <div className="progress-steps">
-        {STEPS.map((s,i) => (
-          <div key={s} className={`progress-step ${i < step ? 'done' : i === step ? 'active' : ''}`} />
+        {STEPS.map((s, i) => (
+          <div
+            key={s}
+            className={`progress-step ${i < step ? "done" : i === step ? "active" : ""}`}
+          />
         ))}
       </div>
-      <div style={{ fontSize:9, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--text3)' }}>
+      <div
+        style={{
+          fontSize: 9,
+          letterSpacing: "0.25em",
+          textTransform: "uppercase",
+          color: "var(--text3)",
+        }}
+      >
         Step {step + 1} of {STEPS.length} — {STEPS[step]}
       </div>
     </div>
@@ -597,10 +627,16 @@ function SingleChoice({ q, value, onChange }) {
       <div className="q-label">{q.label}</div>
       <div className="q-text">{q.text}</div>
       <div className="q-options">
-        {q.options.map(opt => (
-          <div key={opt.key} className={`q-option ${value === opt.key ? 'selected' : ''}`} onClick={() => onChange(opt.key)}>
+        {q.options.map((opt) => (
+          <div
+            key={opt.key}
+            className={`q-option ${value === opt.key ? "selected" : ""}`}
+            onClick={() => onChange(opt.key)}
+          >
             <div className="q-indicator" />
-            <div className="q-option-text"><span className="q-option-key">{opt.key}.</span> {opt.text}</div>
+            <div className="q-option-text">
+              <span className="q-option-key">{opt.key}.</span> {opt.text}
+            </div>
           </div>
         ))}
       </div>
@@ -609,16 +645,30 @@ function SingleChoice({ q, value, onChange }) {
 }
 
 function MultiChoice({ q, value = [], onChange }) {
-  const toggle = key => onChange(value.includes(key) ? value.filter(v=>v!==key) : [...value, key]);
+  const toggle = (key) =>
+    onChange(
+      value.includes(key) ? value.filter((v) => v !== key) : [...value, key],
+    );
   return (
     <div>
       <div className="q-label">{q.label}</div>
       <div className="q-text">{q.text}</div>
       <div className="q-multi">
-        {q.options.map(opt => (
-          <div key={opt.key} className={`q-check ${value.includes(opt.key) ? 'selected' : ''}`} onClick={() => toggle(opt.key)}>
-            <div className="q-check-box"><span className="q-check-mark">✓</span></div>
-            <div className="q-check-text"><span style={{color:'var(--gold)',marginRight:4}}>{opt.key}.</span>{opt.text}</div>
+        {q.options.map((opt) => (
+          <div
+            key={opt.key}
+            className={`q-check ${value.includes(opt.key) ? "selected" : ""}`}
+            onClick={() => toggle(opt.key)}
+          >
+            <div className="q-check-box">
+              <span className="q-check-mark">✓</span>
+            </div>
+            <div className="q-check-text">
+              <span style={{ color: "var(--gold)", marginRight: 4 }}>
+                {opt.key}.
+              </span>
+              {opt.text}
+            </div>
           </div>
         ))}
       </div>
@@ -636,19 +686,26 @@ function JoinModal({ open, onClose }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [contact, setContact] = useState({ name:'', email:'', phone:'', city:'', multiple:'no' });
+  const [contact, setContact] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    city: "",
+    multiple: "no",
+  });
   const [lifestyle, setLifestyle] = useState({});
   const [personality, setPersonality] = useState({});
   const [products, setProducts] = useState({});
-  const [petCategory, setPetCategory] = useState('');
-  const [earlyAccess, setEarlyAccess] = useState('');
+  const [petCategory, setPetCategory] = useState("");
+  const [earlyAccess, setEarlyAccess] = useState("");
 
   const scrollRef = useRef(null);
-  const scrollTop = () => scrollRef.current?.scrollTo({ top:0, behavior:'smooth' });
+  const scrollTop = () =>
+    scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
-  const setL = (id, val) => setLifestyle(p => ({ ...p, [id]:val }));
-  const setP = (id, val) => setPersonality(p => ({ ...p, [id]:val }));
-  const setPr = (id, val) => setProducts(p => ({ ...p, [id]:val }));
+  const setL = (id, val) => setLifestyle((p) => ({ ...p, [id]: val }));
+  const setP = (id, val) => setPersonality((p) => ({ ...p, [id]: val }));
+  const setPr = (id, val) => setProducts((p) => ({ ...p, [id]: val }));
 
   const canNextContact = contact.name && contact.email && contact.city;
   const currentLifeQ = QUESTIONS.lifestyle[lifeIdx];
@@ -661,37 +718,71 @@ function JoinModal({ open, onClose }) {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const payload = { contact, lifestyle, personality, products, petCategory, earlyAccess };
+    const payload = {
+      contact,
+      lifestyle,
+      personality,
+      products,
+      petCategory,
+      earlyAccess,
+    };
     try {
       // POST to your Node.js backend: POST /api/submissions
       await fetch(`${import.meta.env.VITE_API_URL}/api/submissions`, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(payload)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-    } catch (_) { /* handle gracefully */ }
+    } catch (_) {
+      /* handle gracefully */
+    }
     setLoading(false);
     setSubmitted(true);
   };
 
   const reset = () => {
-    setStep(0); setLifeIdx(0); setPersIdx(0); setProdIdx(0); setSubmitted(false);
-    setContact({name:'',email:'',phone:'',city:'',multiple:'no'});
-    setLifestyle({}); setPersonality({}); setProducts({});
-    setPetCategory(''); setEarlyAccess('');
+    setStep(0);
+    setLifeIdx(0);
+    setPersIdx(0);
+    setProdIdx(0);
+    setSubmitted(false);
+    setContact({ name: "", email: "", phone: "", city: "", multiple: "no" });
+    setLifestyle({});
+    setPersonality({});
+    setProducts({});
+    setPetCategory("");
+    setEarlyAccess("");
   };
 
-  const handleClose = () => { reset(); onClose(); };
+  const handleClose = () => {
+    reset();
+    onClose();
+  };
 
   return (
-    <div className={`modal-overlay ${open ? 'open' : ''}`} onClick={e => e.target === e.currentTarget && handleClose()}>
+    <div
+      className={`modal-overlay ${open ? "open" : ""}`}
+      onClick={(e) => e.target === e.currentTarget && handleClose()}
+    >
       <div className="modal" ref={scrollRef}>
         <div className="modal-header">
           <div className="modal-eyebrow">Exclusive Membership</div>
           <div className="modal-title">
-            {submitted ? "You're in." : step === 0 ? "Tell us about yourself" : step === 1 ? "Your pet's lifestyle" : step === 2 ? "Your pet's personality" : step === 3 ? "What matters to you" : "One last thing"}
+            {submitted
+              ? "You're in."
+              : step === 0
+                ? "Tell us about yourself"
+                : step === 1
+                  ? "Your pet's lifestyle"
+                  : step === 2
+                    ? "Your pet's personality"
+                    : step === 3
+                      ? "What matters to you"
+                      : "One last thing"}
           </div>
-          <button className="modal-close" onClick={handleClose}>×</button>
+          <button className="modal-close" onClick={handleClose}>
+            ×
+          </button>
         </div>
 
         <div className="modal-body">
@@ -700,80 +791,189 @@ function JoinModal({ open, onClose }) {
           {submitted ? (
             <div className="success-screen">
               <div className="success-icon">◈</div>
-              <div className="success-title">Welcome to the <em style={{color:'var(--gold)', fontStyle:'italic'}}>inner circle.</em></div>
-              <div style={{marginTop:12}} className="success-subtitle">
-                Your profile has been received. We'll be in touch with something made precisely for {contact.name.split(' ')[0] || 'you'}.
+              <div className="success-title">
+                Welcome to the{" "}
+                <em style={{ color: "var(--gold)", fontStyle: "italic" }}>
+                  inner circle.
+                </em>
+              </div>
+              <div style={{ marginTop: 12 }} className="success-subtitle">
+                Your profile has been received. We'll be in touch with something
+                made precisely for {contact.name.split(" ")[0] || "you"}.
               </div>
             </div>
           ) : step === 0 ? (
             <ContactStep contact={contact} setContact={setContact} />
           ) : step === 1 ? (
-            currentLifeQ.multi
-              ? <MultiChoice q={currentLifeQ} value={lifestyle[currentLifeQ.id]} onChange={v=>setL(currentLifeQ.id,v)} />
-              : <SingleChoice q={currentLifeQ} value={lifestyle[currentLifeQ.id]} onChange={v=>setL(currentLifeQ.id,v)} />
+            currentLifeQ.multi ? (
+              <MultiChoice
+                q={currentLifeQ}
+                value={lifestyle[currentLifeQ.id]}
+                onChange={(v) => setL(currentLifeQ.id, v)}
+              />
+            ) : (
+              <SingleChoice
+                q={currentLifeQ}
+                value={lifestyle[currentLifeQ.id]}
+                onChange={(v) => setL(currentLifeQ.id, v)}
+              />
+            )
           ) : step === 2 ? (
-            <SingleChoice q={currentPersQ} value={personality[currentPersQ.id]} onChange={v=>setP(currentPersQ.id,v)} />
+            <SingleChoice
+              q={currentPersQ}
+              value={personality[currentPersQ.id]}
+              onChange={(v) => setP(currentPersQ.id, v)}
+            />
           ) : step === 3 ? (
-            <SingleChoice q={currentProdQ} value={products[currentProdQ.id]} onChange={v=>setPr(currentProdQ.id,v)} />
+            <SingleChoice
+              q={currentProdQ}
+              value={products[currentProdQ.id]}
+              onChange={(v) => setPr(currentProdQ.id, v)}
+            />
           ) : (
             <FinishStep
-              petCategory={petCategory} setPetCategory={setPetCategory}
-              earlyAccess={earlyAccess} setEarlyAccess={setEarlyAccess}
+              petCategory={petCategory}
+              setPetCategory={setPetCategory}
+              earlyAccess={earlyAccess}
+              setEarlyAccess={setEarlyAccess}
             />
           )}
         </div>
 
         {!submitted && (
           <div className="modal-footer">
-            <button className="btn-ghost" style={{padding:'10px 24px', fontSize:10}}
+            <button
+              className="btn-ghost"
+              style={{ padding: "10px 24px", fontSize: 10 }}
               onClick={() => {
-                if (step === 1 && lifeIdx > 0) { setLifeIdx(i=>i-1); scrollTop(); }
-                else if (step === 2 && persIdx > 0) { setPersIdx(i=>i-1); scrollTop(); }
-                else if (step === 3 && prodIdx > 0) { setProdIdx(i=>i-1); scrollTop(); }
-                else if (step > 0) { setStep(s=>s-1); scrollTop(); }
+                if (step === 1 && lifeIdx > 0) {
+                  setLifeIdx((i) => i - 1);
+                  scrollTop();
+                } else if (step === 2 && persIdx > 0) {
+                  setPersIdx((i) => i - 1);
+                  scrollTop();
+                } else if (step === 3 && prodIdx > 0) {
+                  setProdIdx((i) => i - 1);
+                  scrollTop();
+                } else if (step > 0) {
+                  setStep((s) => s - 1);
+                  scrollTop();
+                }
               }}
-            >← Back</button>
+            >
+              ← Back
+            </button>
 
-            <div style={{display:'flex', alignItems:'center', gap:16}}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               {step === 0 && (
-                <button className="btn-primary" disabled={!canNextContact}
-                  style={{opacity:canNextContact?1:0.4, padding:'10px 28px', fontSize:10}}
-                  onClick={() => { setStep(1); scrollTop(); }}
-                >Continue →</button>
+                <button
+                  className="btn-primary"
+                  disabled={!canNextContact}
+                  style={{
+                    opacity: canNextContact ? 1 : 0.4,
+                    padding: "10px 28px",
+                    fontSize: 10,
+                  }}
+                  onClick={() => {
+                    setStep(1);
+                    scrollTop();
+                  }}
+                >
+                  Continue →
+                </button>
               )}
               {step === 1 && (
-                <button className="btn-primary"
-                  disabled={!lifestyleVal && lifestyleVal !== undefined ? false : !lifestyleVal}
-                  style={{opacity:lifestyleVal||lifestyle[currentLifeQ.id]?.length>0?1:0.4, padding:'10px 28px', fontSize:10}}
-                  onClick={() => {
-                    if (lifeIdx < QUESTIONS.lifestyle.length - 1) { setLifeIdx(i=>i+1); scrollTop(); }
-                    else { setStep(2); scrollTop(); }
+                <button
+                  className="btn-primary"
+                  disabled={
+                    !lifestyleVal && lifestyleVal !== undefined
+                      ? false
+                      : !lifestyleVal
+                  }
+                  style={{
+                    opacity:
+                      lifestyleVal || lifestyle[currentLifeQ.id]?.length > 0
+                        ? 1
+                        : 0.4,
+                    padding: "10px 28px",
+                    fontSize: 10,
                   }}
-                >{lifeIdx < QUESTIONS.lifestyle.length-1 ? 'Next →' : 'Continue →'}</button>
+                  onClick={() => {
+                    if (lifeIdx < QUESTIONS.lifestyle.length - 1) {
+                      setLifeIdx((i) => i + 1);
+                      scrollTop();
+                    } else {
+                      setStep(2);
+                      scrollTop();
+                    }
+                  }}
+                >
+                  {lifeIdx < QUESTIONS.lifestyle.length - 1
+                    ? "Next →"
+                    : "Continue →"}
+                </button>
               )}
               {step === 2 && (
-                <button className="btn-primary" disabled={!persVal}
-                  style={{opacity:persVal?1:0.4, padding:'10px 28px', fontSize:10}}
-                  onClick={() => {
-                    if (persIdx < QUESTIONS.personality.length - 1) { setPersIdx(i=>i+1); scrollTop(); }
-                    else { setStep(3); scrollTop(); }
+                <button
+                  className="btn-primary"
+                  disabled={!persVal}
+                  style={{
+                    opacity: persVal ? 1 : 0.4,
+                    padding: "10px 28px",
+                    fontSize: 10,
                   }}
-                >{persIdx < QUESTIONS.personality.length-1 ? 'Next →' : 'Continue →'}</button>
+                  onClick={() => {
+                    if (persIdx < QUESTIONS.personality.length - 1) {
+                      setPersIdx((i) => i + 1);
+                      scrollTop();
+                    } else {
+                      setStep(3);
+                      scrollTop();
+                    }
+                  }}
+                >
+                  {persIdx < QUESTIONS.personality.length - 1
+                    ? "Next →"
+                    : "Continue →"}
+                </button>
               )}
               {step === 3 && (
-                <button className="btn-primary" disabled={!prodVal}
-                  style={{opacity:prodVal?1:0.4, padding:'10px 28px', fontSize:10}}
-                  onClick={() => {
-                    if (prodIdx < QUESTIONS.products.length - 1) { setProdIdx(i=>i+1); scrollTop(); }
-                    else { setStep(4); scrollTop(); }
+                <button
+                  className="btn-primary"
+                  disabled={!prodVal}
+                  style={{
+                    opacity: prodVal ? 1 : 0.4,
+                    padding: "10px 28px",
+                    fontSize: 10,
                   }}
-                >{prodIdx < QUESTIONS.products.length-1 ? 'Next →' : 'Continue →'}</button>
+                  onClick={() => {
+                    if (prodIdx < QUESTIONS.products.length - 1) {
+                      setProdIdx((i) => i + 1);
+                      scrollTop();
+                    } else {
+                      setStep(4);
+                      scrollTop();
+                    }
+                  }}
+                >
+                  {prodIdx < QUESTIONS.products.length - 1
+                    ? "Next →"
+                    : "Continue →"}
+                </button>
               )}
               {step === 4 && (
-                <button className="btn-primary" disabled={!petCategory || !earlyAccess || loading}
-                  style={{opacity:(petCategory&&earlyAccess&&!loading)?1:0.4, padding:'10px 28px', fontSize:10}}
+                <button
+                  className="btn-primary"
+                  disabled={!petCategory || !earlyAccess || loading}
+                  style={{
+                    opacity: petCategory && earlyAccess && !loading ? 1 : 0.4,
+                    padding: "10px 28px",
+                    fontSize: 10,
+                  }}
                   onClick={handleSubmit}
-                >{loading ? 'Submitting...' : 'Join the Circle →'}</button>
+                >
+                  {loading ? "Submitting..." : "Join the Circle →"}
+                </button>
               )}
             </div>
           </div>
@@ -784,38 +984,67 @@ function JoinModal({ open, onClose }) {
 }
 
 function ContactStep({ contact, setContact }) {
-  const set = k => e => setContact(p => ({ ...p, [k]:e.target.value }));
+  const set = (k) => (e) => setContact((p) => ({ ...p, [k]: e.target.value }));
   return (
     <div>
-      <div className="q-text" style={{marginBottom:24}}>A few details to personalise your experience.</div>
+      <div className="q-text" style={{ marginBottom: 24 }}>
+        A few details to personalise your experience.
+      </div>
       <div className="form-row">
         <div className="form-group">
           <label className="form-label">Full Name *</label>
-          <input className="form-input" placeholder="Your full name" value={contact.name} onChange={set('name')} />
+          <input
+            className="form-input"
+            placeholder="Your full name"
+            value={contact.name}
+            onChange={set("name")}
+          />
         </div>
         <div className="form-group">
           <label className="form-label">Email Address *</label>
-          <input className="form-input" type="email" placeholder="you@email.com" value={contact.email} onChange={set('email')} />
+          <input
+            className="form-input"
+            type="email"
+            placeholder="you@email.com"
+            value={contact.email}
+            onChange={set("email")}
+          />
         </div>
       </div>
       <div className="form-row">
         <div className="form-group">
           <label className="form-label">Phone Number</label>
-          <input className="form-input" placeholder="+91 00000 00000" value={contact.phone} onChange={set('phone')} />
+          <input
+            className="form-input"
+            placeholder="+91 00000 00000"
+            value={contact.phone}
+            onChange={set("phone")}
+          />
         </div>
         <div className="form-group">
           <label className="form-label">City / Country *</label>
-          <input className="form-input" placeholder="Mumbai, India" value={contact.city} onChange={set('city')} />
+          <input
+            className="form-input"
+            placeholder="Mumbai, India"
+            value={contact.city}
+            onChange={set("city")}
+          />
         </div>
       </div>
       <div className="form-group">
         <label className="form-label">Do you own more than one pet?</label>
-        <div style={{display:'flex', gap:8, marginTop:4}}>
-          {['yes','no'].map(v => (
-            <div key={v} className={`q-option ${contact.multiple===v ? 'selected' : ''}`}
-              style={{flex:1}} onClick={() => setContact(p=>({...p,multiple:v}))}>
+        <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
+          {["yes", "no"].map((v) => (
+            <div
+              key={v}
+              className={`q-option ${contact.multiple === v ? "selected" : ""}`}
+              style={{ flex: 1 }}
+              onClick={() => setContact((p) => ({ ...p, multiple: v }))}
+            >
               <div className="q-indicator" />
-              <div className="q-option-text">{v === 'yes' ? 'Yes, multiple pets' : 'No, just one'}</div>
+              <div className="q-option-text">
+                {v === "yes" ? "Yes, multiple pets" : "No, just one"}
+              </div>
             </div>
           ))}
         </div>
@@ -824,27 +1053,45 @@ function ContactStep({ contact, setContact }) {
   );
 }
 
-function FinishStep({ petCategory, setPetCategory, earlyAccess, setEarlyAccess }) {
+function FinishStep({
+  petCategory,
+  setPetCategory,
+  earlyAccess,
+  setEarlyAccess,
+}) {
   return (
     <div>
       <div className="q-label">Final · Category</div>
       <div className="q-text">Which personality matches your pet?</div>
-      <div className="pet-categories" style={{marginBottom:32}}>
-        {PET_PERSONALITIES.map(p => (
-          <div key={p.name} className={`pet-cat ${petCategory===p.name ? 'selected' : ''}`} onClick={() => setPetCategory(p.name)}>
+      <div className="pet-categories" style={{ marginBottom: 32 }}>
+        {PET_PERSONALITIES.map((p) => (
+          <div
+            key={p.name}
+            className={`pet-cat ${petCategory === p.name ? "selected" : ""}`}
+            onClick={() => setPetCategory(p.name)}
+          >
             <div className="pet-cat-name">{p.name}</div>
             <div className="pet-cat-tag">{p.tag}</div>
           </div>
         ))}
       </div>
       <div className="q-label">Early Access</div>
-      <div className="q-text" style={{fontSize:18}}>Want early access to a limited luxury collar collection matched to your pet's category?</div>
+      <div className="q-text" style={{ fontSize: 18 }}>
+        Want early access to a limited luxury collar collection matched to your
+        pet's category?
+      </div>
       <div className="q-options">
-        <div className={`q-option ${earlyAccess==='yes' ? 'selected' : ''}`} onClick={() => setEarlyAccess('yes')}>
+        <div
+          className={`q-option ${earlyAccess === "yes" ? "selected" : ""}`}
+          onClick={() => setEarlyAccess("yes")}
+        >
           <div className="q-indicator" />
           <div className="q-option-text">Yes — notify me when it drops</div>
         </div>
-        <div className={`q-option ${earlyAccess==='community' ? 'selected' : ''}`} onClick={() => setEarlyAccess('community')}>
+        <div
+          className={`q-option ${earlyAccess === "community" ? "selected" : ""}`}
+          onClick={() => setEarlyAccess("community")}
+        >
           <div className="q-indicator" />
           <div className="q-option-text">Just here for the community</div>
         </div>
@@ -857,98 +1104,155 @@ function FinishStep({ petCategory, setPetCategory, earlyAccess, setEarlyAccess }
 
 function FeaturedModal({ open, onClose }) {
   const [files, setFiles] = useState([]);
-  const [petName, setPetName] = useState('');
-  const [breed, setBreed] = useState('');
-  const [caption, setCaption] = useState('');
+  const [petName, setPetName] = useState("");
+  const [breed, setBreed] = useState("");
+  const [caption, setCaption] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleFiles = e => {
-    const newFiles = Array.from(e.target.files).map(f => ({ name:f.name, file:f }));
-    setFiles(p => [...p, ...newFiles].slice(0,5));
+  const handleFiles = (e) => {
+    const newFiles = Array.from(e.target.files).map((f) => ({
+      name: f.name,
+      file: f,
+    }));
+    setFiles((p) => [...p, ...newFiles].slice(0, 5));
   };
-  const removeFile = i => setFiles(p => p.filter((_,idx)=>idx!==i));
+  const removeFile = (i) => setFiles((p) => p.filter((_, idx) => idx !== i));
 
   const handleSubmit = async () => {
     const fd = new FormData();
-    fd.append('petName', petName);
-    fd.append('breed', breed);
-    fd.append('caption', caption);
-    files.forEach(f => fd.append('media', f.file));
+    fd.append("petName", petName);
+    fd.append("breed", breed);
+    fd.append("caption", caption);
+    files.forEach((f) => fd.append("media", f.file));
     try {
       // POST to /api/featured with multipart form
-      await fetch(`${import.meta.env.VITE_API_URL}/api/featured`, { method:'POST', body:fd });
-    } catch(_) {}
+      await fetch(`${import.meta.env.VITE_API_URL}/api/featured`, {
+        method: "POST",
+        body: fd,
+      });
+    } catch (_) {}
     setSubmitted(true);
   };
 
   const handleClose = () => {
-    setFiles([]); setPetName(''); setBreed(''); setCaption(''); setSubmitted(false);
+    setFiles([]);
+    setPetName("");
+    setBreed("");
+    setCaption("");
+    setSubmitted(false);
     onClose();
   };
 
   return (
-    <div className={`modal-overlay ${open ? 'open' : ''}`} onClick={e=>e.target===e.currentTarget&&handleClose()}>
+    <div
+      className={`modal-overlay ${open ? "open" : ""}`}
+      onClick={(e) => e.target === e.currentTarget && handleClose()}
+    >
       <div className="modal">
         <div className="modal-header">
           <div className="modal-eyebrow">Community Spotlight</div>
           <div className="modal-title">Get Featured</div>
-          <button className="modal-close" onClick={handleClose}>×</button>
+          <button className="modal-close" onClick={handleClose}>
+            ×
+          </button>
         </div>
         <div className="modal-body">
           {submitted ? (
             <div className="success-screen">
               <div className="success-icon">◈</div>
               <div className="success-title">Submission received.</div>
-              <div style={{marginTop:12}} className="success-subtitle">
-                Our editors will review and feature worthy submissions on the homepage.
+              <div style={{ marginTop: 12 }} className="success-subtitle">
+                Our editors will review and feature worthy submissions on the
+                homepage.
               </div>
             </div>
           ) : (
             <>
-              <div className="q-text" style={{marginBottom:28}}>Upload your pet's finest moments for a chance to be featured on our homepage.</div>
+              <div className="q-text" style={{ marginBottom: 28 }}>
+                Upload your pet's finest moments for a chance to be featured on
+                our homepage.
+              </div>
               <div className="upload-zone">
-                <input type="file" accept="image/*,video/*" multiple onChange={handleFiles} />
+                <input
+                  type="file"
+                  accept="image/*,video/*"
+                  multiple
+                  onChange={handleFiles}
+                />
                 <div className="upload-icon">⊕</div>
                 <div className="upload-text">
-                  Drag & drop or <span>click to browse</span><br/>
-                  <span style={{color:'var(--text3)', fontSize:11}}>Images & videos — up to 5 files, max 50MB each</span>
+                  Drag & drop or <span>click to browse</span>
+                  <br />
+                  <span style={{ color: "var(--text3)", fontSize: 11 }}>
+                    Images & videos — up to 5 files, max 50MB each
+                  </span>
                 </div>
               </div>
               {files.length > 0 && (
                 <div className="upload-preview">
-                  {files.map((f,i) => (
+                  {files.map((f, i) => (
                     <div key={i} className="upload-chip">
-                      {f.name.slice(0,22)}{f.name.length>22?'…':''}
-                      <button onClick={()=>removeFile(i)}>×</button>
+                      {f.name.slice(0, 22)}
+                      {f.name.length > 22 ? "…" : ""}
+                      <button onClick={() => removeFile(i)}>×</button>
                     </div>
                   ))}
                 </div>
               )}
-              <div style={{height:20}} />
+              <div style={{ height: 20 }} />
               <div className="form-row">
                 <div className="form-group">
                   <label className="form-label">Pet's Name</label>
-                  <input className="form-input" placeholder="Apollo" value={petName} onChange={e=>setPetName(e.target.value)} />
+                  <input
+                    className="form-input"
+                    placeholder="Apollo"
+                    value={petName}
+                    onChange={(e) => setPetName(e.target.value)}
+                  />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Breed</label>
-                  <input className="form-input" placeholder="Golden Retriever" value={breed} onChange={e=>setBreed(e.target.value)} />
+                  <input
+                    className="form-input"
+                    placeholder="Golden Retriever"
+                    value={breed}
+                    onChange={(e) => setBreed(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <label className="form-label">Caption (optional)</label>
-                <textarea className="form-input form-textarea" placeholder="A moment worth remembering…" value={caption} onChange={e=>setCaption(e.target.value)} />
+                <textarea
+                  className="form-input form-textarea"
+                  placeholder="A moment worth remembering…"
+                  value={caption}
+                  onChange={(e) => setCaption(e.target.value)}
+                />
               </div>
             </>
           )}
         </div>
         {!submitted && (
           <div className="modal-footer">
-            <button className="btn-ghost" style={{padding:'10px 24px',fontSize:10}} onClick={handleClose}>Cancel</button>
-            <button className="btn-primary" disabled={files.length===0||!petName}
-              style={{opacity:(files.length>0&&petName)?1:0.4, padding:'10px 28px', fontSize:10}}
+            <button
+              className="btn-ghost"
+              style={{ padding: "10px 24px", fontSize: 10 }}
+              onClick={handleClose}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn-primary"
+              disabled={files.length === 0 || !petName}
+              style={{
+                opacity: files.length > 0 && petName ? 1 : 0.4,
+                padding: "10px 28px",
+                fontSize: 10,
+              }}
               onClick={handleSubmit}
-            >Submit for Review →</button>
+            >
+              Submit for Review →
+            </button>
           </div>
         )}
       </div>
@@ -967,18 +1271,40 @@ export default function App() {
   useFadeIn();
 
   // Fetch live featured pets from backend
+  // useEffect(() => {
+  //   fetch(`${import.meta.env.VITE_API_URL}/api/featured/active`)
+  //     .then(r => r.json())
+  //     .then(data => {
+  //       const items = data.map((m, i) => ({
+  //         _id: m._id,
+  //         featured: i === 0,
+  //         name: m.petName || 'Unknown',
+  //         breed: m.breed || '',
+  //         caption: m.caption || '',
+  //         img: m.files?.[0]
+  //           ? `https://velvetpow.onrender.com/uploads/${m.files[0].split(/[\\/]/).pop()}`
+  //           : null,
+  //       }));
+  //       setMediaItems(items);
+  //     })
+  //     .catch(() => setMediaItems([]))
+  //     .finally(() => setMediaLoading(false));
+  // }, []);
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/featured/active`)
-      .then(r => r.json())
-      .then(data => {
+      .then((r) => r.json())
+      .then((data) => {
         const items = data.map((m, i) => ({
           _id: m._id,
           featured: i === 0,
-          name: m.petName || 'Unknown',
-          breed: m.breed || '',
-          caption: m.caption || '',
+          name: m.petName || "Unknown",
+          breed: m.breed || "",
+          caption: m.caption || "",
           img: m.files?.[0]
-            ? `https://velvetpow.onrender.com/uploads/${m.files[0].split(/[\\/]/).pop()}`
+            ? m.files[0].startsWith("http")
+              ? m.files[0]
+              : `${import.meta.env.VITE_API_URL}${m.files[0]}`
             : null,
         }));
         setMediaItems(items);
@@ -992,15 +1318,43 @@ export default function App() {
       <style>{css}</style>
 
       {/* NAV */}
-      <nav className={`nav ${scrolled ? 'scrolled' : ''}`}>
-        <div className="nav-logo">Velvet<span>Paw</span></div>
-        <div className="nav-links">
-          <a onClick={()=>document.getElementById('community')?.scrollIntoView({behavior:'smooth'})}>Community</a>
-          <a onClick={()=>document.getElementById('community')?.scrollIntoView({behavior:'smooth'})}>Personalities</a>
-          <a onClick={()=>document.getElementById('showcase')?.scrollIntoView({behavior:'smooth'})}>Showcase</a>
-          <a onClick={()=>setFeaturedOpen(true)}>Get Featured</a>
+      <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
+        <div className="nav-logo">
+          Velvet<span>Paw</span>
         </div>
-        <button className="nav-cta" onClick={()=>setJoinOpen(true)}>Join Us</button>
+        <div className="nav-links">
+          <a
+            onClick={() =>
+              document
+                .getElementById("community")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            Community
+          </a>
+          <a
+            onClick={() =>
+              document
+                .getElementById("community")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            Personalities
+          </a>
+          <a
+            onClick={() =>
+              document
+                .getElementById("showcase")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            Showcase
+          </a>
+          <a onClick={() => setFeaturedOpen(true)}>Get Featured</a>
+        </div>
+        <button className="nav-cta" onClick={() => setJoinOpen(true)}>
+          Join Us
+        </button>
       </nav>
 
       {/* HERO */}
@@ -1008,16 +1362,41 @@ export default function App() {
         <div className="hero-bg" />
         <div className="hero-ornament" />
         <div className="hero-content">
-          <div className="hero-eyebrow">A Private Society for Distinguished Pet Owners</div>
+          <div className="hero-eyebrow">
+            A Private Society for Distinguished Pet Owners
+          </div>
           <h1 className="hero-headline">
-            Where <em>devotion</em><br/>becomes an art form.
+            Where <em>devotion</em>
+            <br />
+            becomes an art form.
           </h1>
           <p className="hero-subline">
-            An invitation-only community for those who understand that a pet is not a companion — they are a presence.
+            An invitation-only community for those who understand that a pet is
+            not a companion — they are a presence.
           </p>
           <div className="hero-actions">
-            <button className="btn-primary" onClick={()=>window.open('mailto:velvetpow@gmail.com?subject=Membership%20Request&body=Hello%20VelvetPaw%2C%0A%0AI%20want%20to%20be%20a%20Member.%0A%0AName%3A%20%0ACity%3A%20%0A%0AThank%20you.','_blank')}>Request Membership</button>
-            <button className="btn-ghost" onClick={()=>window.open('https://chat.whatsapp.com/ExampleCommunityLinkHere','_blank')}>Explore Community</button>
+            <button
+              className="btn-primary"
+              onClick={() =>
+                window.open(
+                  "mailto:velvetpow@gmail.com?subject=Membership%20Request&body=Hello%20VelvetPaw%2C%0A%0AI%20want%20to%20be%20a%20Member.%0A%0AName%3A%20%0ACity%3A%20%0A%0AThank%20you.",
+                  "_blank",
+                )
+              }
+            >
+              Request Membership
+            </button>
+            <button
+              className="btn-ghost"
+              onClick={() =>
+                window.open(
+                  "https://chat.whatsapp.com/ExampleCommunityLinkHere",
+                  "_blank",
+                )
+              }
+            >
+              Explore Community
+            </button>
           </div>
         </div>
         <div className="hero-stats">
@@ -1044,13 +1423,24 @@ export default function App() {
       <section id="community" className="section personalities-bg">
         <div className="section-header fade-in">
           <div className="section-eyebrow">The Archetypes</div>
-          <h2 className="section-title">Which one is<br/><em>yours?</em></h2>
-          <p className="section-subtitle">Every pet carries an essence. We've distilled ten distinct souls — each one a lens through which to see your companion differently.</p>
+          <h2 className="section-title">
+            Which one is
+            <br />
+            <em>yours?</em>
+          </h2>
+          <p className="section-subtitle">
+            Every pet carries an essence. We've distilled ten distinct souls —
+            each one a lens through which to see your companion differently.
+          </p>
         </div>
         <div className="personalities-grid fade-in">
-          {PET_PERSONALITIES.map((p,i) => (
-            <div key={p.name} className="personality-card" onClick={()=>setJoinOpen(true)}>
-              <div className="personality-num">0{i+1}</div>
+          {PET_PERSONALITIES.map((p, i) => (
+            <div
+              key={p.name}
+              className="personality-card"
+              onClick={() => setJoinOpen(true)}
+            >
+              <div className="personality-num">0{i + 1}</div>
               <div className="personality-name">{p.name}</div>
               <div className="personality-tagline">{p.tag}</div>
             </div>
@@ -1061,47 +1451,143 @@ export default function App() {
       <div className="divider-line" />
 
       {/* MEDIA SHOWCASE */}
-      <section id="showcase" className="section media-bg" style={{paddingBottom:0}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-end',marginBottom:48}}>
+      <section
+        id="showcase"
+        className="section media-bg"
+        style={{ paddingBottom: 0 }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            marginBottom: 48,
+          }}
+        >
           <div>
             <div className="section-eyebrow">Community Showcase</div>
-            <h2 className="section-title">Portraits of<br/><em>distinction.</em></h2>
+            <h2 className="section-title">
+              Portraits of
+              <br />
+              <em>distinction.</em>
+            </h2>
           </div>
-          <button className="btn-ghost" onClick={()=>setFeaturedOpen(true)} style={{whiteSpace:'nowrap'}}>Submit Your Pet →</button>
+          <button
+            className="btn-ghost"
+            onClick={() => setFeaturedOpen(true)}
+            style={{ whiteSpace: "nowrap" }}
+          >
+            Submit Your Pet →
+          </button>
         </div>
         {mediaLoading ? (
-          <div style={{textAlign:'center', padding:'60px 0', color:'var(--text3)', fontSize:11, letterSpacing:'0.3em', textTransform:'uppercase'}}>
+          <div
+            style={{
+              textAlign: "center",
+              padding: "60px 0",
+              color: "var(--text3)",
+              fontSize: 11,
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+            }}
+          >
             Loading showcase…
           </div>
         ) : mediaItems.length === 0 ? (
-          <div style={{textAlign:'center', padding:'80px 24px', border:'0.5px solid rgba(196,160,74,0.1)'}}>
-            <div style={{fontSize:36, color:'rgba(196,160,74,0.15)', marginBottom:16}}>◈</div>
-            <div style={{fontSize:11, letterSpacing:'0.3em', textTransform:'uppercase', color:'var(--text3)', marginBottom:8}}>No featured pets yet</div>
-            <div style={{fontSize:12, color:'var(--text3)'}}>Be the first — submit your pet above.</div>
+          <div
+            style={{
+              textAlign: "center",
+              padding: "80px 24px",
+              border: "0.5px solid rgba(196,160,74,0.1)",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 36,
+                color: "rgba(196,160,74,0.15)",
+                marginBottom: 16,
+              }}
+            >
+              ◈
+            </div>
+            <div
+              style={{
+                fontSize: 11,
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "var(--text3)",
+                marginBottom: 8,
+              }}
+            >
+              No featured pets yet
+            </div>
+            <div style={{ fontSize: 12, color: "var(--text3)" }}>
+              Be the first — submit your pet above.
+            </div>
           </div>
         ) : (
-          <div className="media-grid" style={{opacity:1, transform:'none'}}>
+          <div className="media-grid" style={{ opacity: 1, transform: "none" }}>
             {mediaItems.map((item, i) => (
-              <div key={item._id || i} className={`media-item ${item.featured ? 'featured' : ''}`}>
+              <div
+                key={item._id || i}
+                className={`media-item ${item.featured ? "featured" : ""}`}
+              >
                 {item.img ? (
                   <img
                     src={item.img}
                     alt={item.name}
-                    style={{ width:'100%', height:'100%', objectFit:'cover', display:'block', filter:'brightness(0.88) saturate(0.85)' }}
-                    onError={e => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                      filter: "brightness(0.88) saturate(0.85)",
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                      e.target.nextSibling.style.display = "flex";
+                    }}
                   />
                 ) : null}
                 {/* Fallback if image fails to load */}
-                <div style={{
-                  display: item.img ? 'none' : 'flex',
-                  width:'100%', height:'100%', alignItems:'center', justifyContent:'center',
-                  flexDirection:'column', gap:8, background:'var(--surface)'
-                }}>
-                  <div style={{fontSize:32, color:'rgba(196,160,74,0.2)'}}>◈</div>
-                  <div style={{fontSize:10, letterSpacing:'0.2em', textTransform:'uppercase', color:'var(--text3)'}}>{item.name}</div>
+                <div
+                  style={{
+                    display: item.img ? "none" : "flex",
+                    width: "100%",
+                    height: "100%",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    gap: 8,
+                    background: "var(--surface)",
+                  }}
+                >
+                  <div style={{ fontSize: 32, color: "rgba(196,160,74,0.2)" }}>
+                    ◈
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      letterSpacing: "0.2em",
+                      textTransform: "uppercase",
+                      color: "var(--text3)",
+                    }}
+                  >
+                    {item.name}
+                  </div>
                 </div>
-                <div className="media-item-overlay" style={{opacity:1, background:'linear-gradient(to top, rgba(14,13,11,0.75) 0%, transparent 55%)'}} />
-                <div className="media-item-content" style={{opacity:1, transform:'translateY(0)'}}>
+                <div
+                  className="media-item-overlay"
+                  style={{
+                    opacity: 1,
+                    background:
+                      "linear-gradient(to top, rgba(14,13,11,0.75) 0%, transparent 55%)",
+                  }}
+                />
+                <div
+                  className="media-item-content"
+                  style={{ opacity: 1, transform: "translateY(0)" }}
+                >
                   <div className="media-item-name">{item.name}</div>
                   <div className="media-item-breed">{item.breed}</div>
                 </div>
@@ -1111,7 +1597,7 @@ export default function App() {
         )}
       </section>
 
-      <div style={{height:80}} />
+      <div style={{ height: 80 }} />
       <div className="divider-line" />
 
       {/* GET FEATURED */}
@@ -1119,30 +1605,89 @@ export default function App() {
         <div className="featured-split">
           <div className="fade-in">
             <div className="section-eyebrow">Get Featured</div>
-            <h2 className="section-title">Share their<br/><em>story.</em></h2>
-            <p className="section-subtitle" style={{marginBottom:40}}>
-              The most remarkable pets deserve to be seen. Submit your images and video — our editors handpick the finest for the homepage spotlight.
+            <h2 className="section-title">
+              Share their
+              <br />
+              <em>story.</em>
+            </h2>
+            <p className="section-subtitle" style={{ marginBottom: 40 }}>
+              The most remarkable pets deserve to be seen. Submit your images
+              and video — our editors handpick the finest for the homepage
+              spotlight.
             </p>
-            <div style={{display:'flex', flexDirection:'column', gap:20, marginBottom:40}}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 20,
+                marginBottom: 40,
+              }}
+            >
               {[
-                { icon:'◈', text:'Upload photos and short video clips of your pet' },
-                { icon:'◇', text:'Our curatorial team reviews all submissions weekly' },
-                { icon:'◉', text:'Selected pets appear on the homepage — seen by thousands' },
-              ].map(item => (
-                <div key={item.icon} style={{display:'flex', gap:16, alignItems:'flex-start'}}>
-                  <div style={{color:'var(--gold)', fontSize:16, marginTop:2, flexShrink:0}}>{item.icon}</div>
-                  <div style={{fontSize:14, color:'var(--text2)', lineHeight:1.6}}>{item.text}</div>
+                {
+                  icon: "◈",
+                  text: "Upload photos and short video clips of your pet",
+                },
+                {
+                  icon: "◇",
+                  text: "Our curatorial team reviews all submissions weekly",
+                },
+                {
+                  icon: "◉",
+                  text: "Selected pets appear on the homepage — seen by thousands",
+                },
+              ].map((item) => (
+                <div
+                  key={item.icon}
+                  style={{ display: "flex", gap: 16, alignItems: "flex-start" }}
+                >
+                  <div
+                    style={{
+                      color: "var(--gold)",
+                      fontSize: 16,
+                      marginTop: 2,
+                      flexShrink: 0,
+                    }}
+                  >
+                    {item.icon}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 14,
+                      color: "var(--text2)",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {item.text}
+                  </div>
                 </div>
               ))}
             </div>
-            <button className="btn-primary" onClick={()=>setFeaturedOpen(true)}>Submit Your Pet →</button>
+            <button
+              className="btn-primary"
+              onClick={() => setFeaturedOpen(true)}
+            >
+              Submit Your Pet →
+            </button>
           </div>
           <div className="fade-in">
             <div className="featured-visual">
-              <div style={{fontSize:48, color:'rgba(196,160,74,0.2)'}}>◈</div>
+              <div style={{ fontSize: 48, color: "rgba(196,160,74,0.2)" }}>
+                ◈
+              </div>
               <div className="featured-visual-text">Your pet could be here</div>
-              <div style={{position:'absolute', top:20, right:20}}>
-                <div style={{fontSize:9, letterSpacing:'0.25em', textTransform:'uppercase', color:'var(--gold)', opacity:0.6}}>Featured</div>
+              <div style={{ position: "absolute", top: 20, right: 20 }}>
+                <div
+                  style={{
+                    fontSize: 9,
+                    letterSpacing: "0.25em",
+                    textTransform: "uppercase",
+                    color: "var(--gold)",
+                    opacity: 0.6,
+                  }}
+                >
+                  Featured
+                </div>
               </div>
             </div>
           </div>
@@ -1152,16 +1697,35 @@ export default function App() {
       <div className="divider-line" />
 
       {/* DATA / JOIN CTA */}
-      <section className="section" style={{background:'var(--dark3)', textAlign:'center'}}>
-        <div className="fade-in" style={{maxWidth:600, margin:'0 auto'}}>
-          <div className="section-eyebrow" style={{justifyContent:'center'}}>Membership</div>
-          <h2 className="section-title" style={{marginBottom:20}}>
-            This is not a newsletter.<br/>It's a <em>private circle.</em>
+      <section
+        className="section"
+        style={{ background: "var(--dark3)", textAlign: "center" }}
+      >
+        <div className="fade-in" style={{ maxWidth: 600, margin: "0 auto" }}>
+          <div className="section-eyebrow" style={{ justifyContent: "center" }}>
+            Membership
+          </div>
+          <h2 className="section-title" style={{ marginBottom: 20 }}>
+            This is not a newsletter.
+            <br />
+            It's a <em>private circle.</em>
           </h2>
-          <p className="section-subtitle" style={{maxWidth:480, margin:'0 auto 40px', textAlign:'center'}}>
-            Take our five-minute questionnaire. Discover your pet's archetype. Receive what was made for them specifically.
+          <p
+            className="section-subtitle"
+            style={{
+              maxWidth: 480,
+              margin: "0 auto 40px",
+              textAlign: "center",
+            }}
+          >
+            Take our five-minute questionnaire. Discover your pet's archetype.
+            Receive what was made for them specifically.
           </p>
-          <button className="btn-primary" style={{padding:'18px 48px', fontSize:11}} onClick={()=>setJoinOpen(true)}>
+          <button
+            className="btn-primary"
+            style={{ padding: "18px 48px", fontSize: 11 }}
+            onClick={() => setJoinOpen(true)}
+          >
             Begin Your Profile
           </button>
         </div>
@@ -1172,51 +1736,133 @@ export default function App() {
         <div className="footer-grid">
           <div>
             <div className="footer-brand-name">VelvetPaw</div>
-            <div className="footer-brand-desc">A curated community for ultra-discerning pet owners. By invitation only.</div>
+            <div className="footer-brand-desc">
+              A curated community for ultra-discerning pet owners. By invitation
+              only.
+            </div>
           </div>
           <div>
             <div className="footer-col-title">Community</div>
             <div className="footer-links">
-              <a onClick={()=>document.getElementById('community')?.scrollIntoView({behavior:'smooth'})}>Member Directory</a>
-              <a onClick={()=>document.getElementById('community')?.scrollIntoView({behavior:'smooth'})}>Archetypes</a>
-              <a onClick={()=>setFeaturedOpen(true)}>Get Featured</a>
-              <a href="https://chat.whatsapp.com/ExampleCommunityLinkHere" target="_blank" rel="noreferrer">Events</a>
+              <a
+                onClick={() =>
+                  document
+                    .getElementById("community")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Member Directory
+              </a>
+              <a
+                onClick={() =>
+                  document
+                    .getElementById("community")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                Archetypes
+              </a>
+              <a onClick={() => setFeaturedOpen(true)}>Get Featured</a>
+              <a
+                href="https://chat.whatsapp.com/ExampleCommunityLinkHere"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Events
+              </a>
             </div>
           </div>
           <div>
             <div className="footer-col-title">Platform</div>
             <div className="footer-links">
-              <a onClick={()=>setJoinOpen(true)}>Join Us</a>
-              <a href="mailto:velvetpow@gmail.com?subject=About%20VelvetPaw" target="_blank" rel="noreferrer">About</a>
-              <a href="mailto:velvetpow@gmail.com?subject=Press%20Enquiry" target="_blank" rel="noreferrer">Press</a>
-              <a href="mailto:velvetpow@gmail.com?subject=Partnership%20Enquiry" target="_blank" rel="noreferrer">Partnerships</a>
+              <a onClick={() => setJoinOpen(true)}>Join Us</a>
+              <a
+                href="mailto:velvetpow@gmail.com?subject=About%20VelvetPaw"
+                target="_blank"
+                rel="noreferrer"
+              >
+                About
+              </a>
+              <a
+                href="mailto:velvetpow@gmail.com?subject=Press%20Enquiry"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Press
+              </a>
+              <a
+                href="mailto:velvetpow@gmail.com?subject=Partnership%20Enquiry"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Partnerships
+              </a>
             </div>
           </div>
           <div>
             <div className="footer-col-title">Contact</div>
             <div className="footer-links">
-              <a href="mailto:velvetpow@gmail.com" target="_blank" rel="noreferrer">velvetpow@gmail.com</a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
-              <a href="https://chat.whatsapp.com/ExampleCommunityLinkHere" target="_blank" rel="noreferrer">WhatsApp Community</a>
+              <a
+                href="mailto:velvetpow@gmail.com"
+                target="_blank"
+                rel="noreferrer"
+              >
+                velvetpow@gmail.com
+              </a>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                Instagram
+              </a>
+              <a
+                href="https://chat.whatsapp.com/ExampleCommunityLinkHere"
+                target="_blank"
+                rel="noreferrer"
+              >
+                WhatsApp Community
+              </a>
             </div>
           </div>
         </div>
         <div className="footer-bottom">
-          <div className="footer-copy">© 2025 VelvetPaw. All rights reserved.</div>
+          <div className="footer-copy">
+            © 2025 VelvetPaw. All rights reserved.
+          </div>
           <div className="footer-legal">
-            <a href="mailto:velvetpow@gmail.com?subject=Privacy%20Policy" target="_blank" rel="noreferrer">Privacy</a>
-            <a href="mailto:velvetpow@gmail.com?subject=Terms%20of%20Service" target="_blank" rel="noreferrer">Terms</a>
-            <a href="mailto:velvetpow@gmail.com?subject=Cookie%20Policy" target="_blank" rel="noreferrer">Cookies</a>
+            <a
+              href="mailto:velvetpow@gmail.com?subject=Privacy%20Policy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Privacy
+            </a>
+            <a
+              href="mailto:velvetpow@gmail.com?subject=Terms%20of%20Service"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Terms
+            </a>
+            <a
+              href="mailto:velvetpow@gmail.com?subject=Cookie%20Policy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Cookies
+            </a>
           </div>
         </div>
       </footer>
 
       {/* FLOATING JOIN BUTTON */}
-      <button className="float-btn" onClick={()=>setJoinOpen(true)}>Join Us</button>
+      <button className="float-btn" onClick={() => setJoinOpen(true)}>
+        Join Us
+      </button>
 
       {/* MODALS */}
-      <JoinModal open={joinOpen} onClose={()=>setJoinOpen(false)} />
-      <FeaturedModal open={featuredOpen} onClose={()=>setFeaturedOpen(false)} />
+      <JoinModal open={joinOpen} onClose={() => setJoinOpen(false)} />
+      <FeaturedModal
+        open={featuredOpen}
+        onClose={() => setFeaturedOpen(false)}
+      />
     </>
   );
 }

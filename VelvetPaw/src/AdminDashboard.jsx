@@ -223,13 +223,17 @@ const css = `
 `;
 
 // const API = 'http://localhost:5000';
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function fmt(date) {
-  if (!date) return '—';
-  return new Date(date).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+  if (!date) return "—";
+  return new Date(date).toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 function DetailRow({ label, value }) {
@@ -237,7 +241,9 @@ function DetailRow({ label, value }) {
   return (
     <div className="detail-item">
       <div className="detail-key">{label}</div>
-      <div className="detail-val">{Array.isArray(value) ? value.join(', ') || '—' : value || '—'}</div>
+      <div className="detail-val">
+        {Array.isArray(value) ? value.join(", ") || "—" : value || "—"}
+      </div>
     </div>
   );
 }
@@ -267,29 +273,31 @@ function DetailRow({ label, value }) {
 //   );
 // }
 
-
 function Login({ onLogin }) {
-  const [pw, setPw] = useState('');
-  const [err, setErr] = useState('');
+  const [pw, setPw] = useState("");
+  const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
 
   const submit = async () => {
     setLoading(true);
-    setErr('');
+    setErr("");
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/admin/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: pw })
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: pw }),
+        },
+      );
       const data = await res.json();
       if (data.success) {
         onLogin();
       } else {
-        setErr('Incorrect password. Try again.');
+        setErr("Incorrect password. Try again.");
       }
     } catch {
-      setErr('Could not connect to server.');
+      setErr("Could not connect to server.");
     }
     setLoading(false);
   };
@@ -300,11 +308,16 @@ function Login({ onLogin }) {
         <div className="login-logo">VelvetPaw</div>
         <div className="login-sub">Admin Portal</div>
         <label className="login-label">Admin Password</label>
-        <input className="login-input" type="password" placeholder="Enter password"
-          value={pw} onChange={e=>setPw(e.target.value)}
-          onKeyDown={e=>e.key==='Enter'&&submit()} />
+        <input
+          className="login-input"
+          type="password"
+          placeholder="Enter password"
+          value={pw}
+          onChange={(e) => setPw(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && submit()}
+        />
         <button className="login-btn" onClick={submit} disabled={loading}>
-          {loading ? 'Verifying...' : 'Enter Dashboard →'}
+          {loading ? "Verifying..." : "Enter Dashboard →"}
         </button>
         {err && <div className="login-error">{err}</div>}
       </div>
@@ -312,28 +325,39 @@ function Login({ onLogin }) {
   );
 }
 
-
-
 // ─── Submissions Tab ──────────────────────────────────────────────────────────
 
 function SubmissionsTab({ submissions, loading }) {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState("all");
 
-  const filtered = submissions.filter(s => {
+  const filtered = submissions.filter((s) => {
     const q = search.toLowerCase();
-    const matchSearch = !q || s.contact?.name?.toLowerCase().includes(q) || s.contact?.email?.toLowerCase().includes(q) || s.contact?.city?.toLowerCase().includes(q);
-    const matchFilter = filter === 'all' || (filter === 'early' && s.earlyAccess === 'yes') || (filter === s.petCategory?.toLowerCase());
+    const matchSearch =
+      !q ||
+      s.contact?.name?.toLowerCase().includes(q) ||
+      s.contact?.email?.toLowerCase().includes(q) ||
+      s.contact?.city?.toLowerCase().includes(q);
+    const matchFilter =
+      filter === "all" ||
+      (filter === "early" && s.earlyAccess === "yes") ||
+      filter === s.petCategory?.toLowerCase();
     return matchSearch && matchFilter;
   });
 
   return (
     <>
       <div className="filter-tabs">
-        {['all','early'].map(f => (
-          <button key={f} className={`filter-tab ${filter===f?'active':''}`} onClick={()=>setFilter(f)}>
-            {f === 'all' ? `All (${submissions.length})` : `Early Access (${submissions.filter(s=>s.earlyAccess==='yes').length})`}
+        {["all", "early"].map((f) => (
+          <button
+            key={f}
+            className={`filter-tab ${filter === f ? "active" : ""}`}
+            onClick={() => setFilter(f)}
+          >
+            {f === "all"
+              ? `All (${submissions.length})`
+              : `Early Access (${submissions.filter((s) => s.earlyAccess === "yes").length})`}
           </button>
         ))}
       </div>
@@ -341,10 +365,20 @@ function SubmissionsTab({ submissions, loading }) {
       <div className="table-wrap">
         <div className="table-toolbar">
           <div className="toolbar-title">Member Submissions</div>
-          <input className="search-input" placeholder="Search by name, email, city…" value={search} onChange={e=>setSearch(e.target.value)} />
+          <input
+            className="search-input"
+            placeholder="Search by name, email, city…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
-        {loading ? <div className="loading">Loading…</div> : filtered.length === 0 ? (
-          <div className="empty"><div className="empty-icon">◈</div><div className="empty-text">No submissions yet</div></div>
+        {loading ? (
+          <div className="loading">Loading…</div>
+        ) : filtered.length === 0 ? (
+          <div className="empty">
+            <div className="empty-icon">◈</div>
+            <div className="empty-text">No submissions yet</div>
+          </div>
         ) : (
           <table>
             <thead>
@@ -360,20 +394,30 @@ function SubmissionsTab({ submissions, loading }) {
               </tr>
             </thead>
             <tbody>
-              {filtered.map(s => (
+              {filtered.map((s) => (
                 <tr key={s._id}>
-                  <td className="td-name">{s.contact?.name || '—'}</td>
-                  <td className="td-email">{s.contact?.email || '—'}</td>
-                  <td>{s.contact?.city || '—'}</td>
-                  <td><span className="badge badge-gold">{s.petCategory || '—'}</span></td>
-                  <td>{s.lifestyle?.spend || '—'}</td>
+                  <td className="td-name">{s.contact?.name || "—"}</td>
+                  <td className="td-email">{s.contact?.email || "—"}</td>
+                  <td>{s.contact?.city || "—"}</td>
                   <td>
-                    {s.earlyAccess === 'yes'
-                      ? <span className="badge badge-green">Yes</span>
-                      : <span className="badge badge-blue">Community</span>}
+                    <span className="badge badge-gold">
+                      {s.petCategory || "—"}
+                    </span>
+                  </td>
+                  <td>{s.lifestyle?.spend || "—"}</td>
+                  <td>
+                    {s.earlyAccess === "yes" ? (
+                      <span className="badge badge-green">Yes</span>
+                    ) : (
+                      <span className="badge badge-blue">Community</span>
+                    )}
                   </td>
                   <td>{fmt(s.submittedAt)}</td>
-                  <td><button className="btn-view" onClick={()=>setSelected(s)}>View →</button></td>
+                  <td>
+                    <button className="btn-view" onClick={() => setSelected(s)}>
+                      View →
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -382,14 +426,21 @@ function SubmissionsTab({ submissions, loading }) {
       </div>
 
       {selected && (
-        <div className="overlay" onClick={e=>e.target===e.currentTarget&&setSelected(null)}>
+        <div
+          className="overlay"
+          onClick={(e) => e.target === e.currentTarget && setSelected(null)}
+        >
           <div className="detail-modal">
             <div className="modal-head">
               <div>
                 <div className="modal-head-name">{selected.contact?.name}</div>
-                <div className="modal-head-email">{selected.contact?.email} · {selected.contact?.phone}</div>
+                <div className="modal-head-email">
+                  {selected.contact?.email} · {selected.contact?.phone}
+                </div>
               </div>
-              <button className="close-btn" onClick={()=>setSelected(null)}>×</button>
+              <button className="close-btn" onClick={() => setSelected(null)}>
+                ×
+              </button>
             </div>
             <div className="modal-body">
               <div className="detail-section">
@@ -399,42 +450,90 @@ function SubmissionsTab({ submissions, loading }) {
                   <DetailRow label="Email" value={selected.contact?.email} />
                   <DetailRow label="Phone" value={selected.contact?.phone} />
                   <DetailRow label="City" value={selected.contact?.city} />
-                  <DetailRow label="Multiple Pets" value={selected.contact?.multiple} />
+                  <DetailRow
+                    label="Multiple Pets"
+                    value={selected.contact?.multiple}
+                  />
                 </div>
               </div>
               <div className="detail-section">
                 <div className="detail-section-title">Lifestyle & Spending</div>
                 <div className="detail-grid">
-                  <DetailRow label="Vacation Arrangement" value={selected.lifestyle?.vacation} />
-                  <DetailRow label="Food Approach" value={selected.lifestyle?.food} />
-                  <DetailRow label="Monthly Spend" value={selected.lifestyle?.spend} />
-                  <DetailRow label="Car Setup" value={selected.lifestyle?.car} />
-                  <DetailRow label="Past Purchases" value={selected.lifestyle?.purchases} />
+                  <DetailRow
+                    label="Vacation Arrangement"
+                    value={selected.lifestyle?.vacation}
+                  />
+                  <DetailRow
+                    label="Food Approach"
+                    value={selected.lifestyle?.food}
+                  />
+                  <DetailRow
+                    label="Monthly Spend"
+                    value={selected.lifestyle?.spend}
+                  />
+                  <DetailRow
+                    label="Car Setup"
+                    value={selected.lifestyle?.car}
+                  />
+                  <DetailRow
+                    label="Past Purchases"
+                    value={selected.lifestyle?.purchases}
+                  />
                 </div>
               </div>
               <div className="detail-section">
                 <div className="detail-section-title">Personality Answers</div>
                 <div className="detail-grid">
-                  <DetailRow label="Pet Phrase" value={selected.personality?.phrase} />
-                  <DetailRow label="Doorbell Reaction" value={selected.personality?.doorbell} />
-                  <DetailRow label="At Restaurant" value={selected.personality?.restaurant} />
-                  <DetailRow label="Home Design Pain" value={selected.personality?.design} />
-                  <DetailRow label="Splurge Mentality" value={selected.personality?.splurge} />
+                  <DetailRow
+                    label="Pet Phrase"
+                    value={selected.personality?.phrase}
+                  />
+                  <DetailRow
+                    label="Doorbell Reaction"
+                    value={selected.personality?.doorbell}
+                  />
+                  <DetailRow
+                    label="At Restaurant"
+                    value={selected.personality?.restaurant}
+                  />
+                  <DetailRow
+                    label="Home Design Pain"
+                    value={selected.personality?.design}
+                  />
+                  <DetailRow
+                    label="Splurge Mentality"
+                    value={selected.personality?.splurge}
+                  />
                 </div>
               </div>
               <div className="detail-section">
                 <div className="detail-section-title">Product Interest</div>
                 <div className="detail-grid">
-                  <DetailRow label="Off-Leash Worry" value={selected.products?.offleash} />
-                  <DetailRow label="Guest Management" value={selected.products?.guests} />
+                  <DetailRow
+                    label="Off-Leash Worry"
+                    value={selected.products?.offleash}
+                  />
+                  <DetailRow
+                    label="Guest Management"
+                    value={selected.products?.guests}
+                  />
                 </div>
               </div>
               <div className="detail-section">
                 <div className="detail-section-title">Classification</div>
                 <div className="detail-grid">
-                  <DetailRow label="Pet Category" value={selected.petCategory} />
-                  <DetailRow label="Early Access" value={selected.earlyAccess} />
-                  <DetailRow label="Submitted" value={fmt(selected.submittedAt)} />
+                  <DetailRow
+                    label="Pet Category"
+                    value={selected.petCategory}
+                  />
+                  <DetailRow
+                    label="Early Access"
+                    value={selected.earlyAccess}
+                  />
+                  <DetailRow
+                    label="Submitted"
+                    value={fmt(selected.submittedAt)}
+                  />
                 </div>
               </div>
             </div>
@@ -448,46 +547,104 @@ function SubmissionsTab({ submissions, loading }) {
 // ─── Media Tab ────────────────────────────────────────────────────────────────
 
 function MediaTab({ media, loading, onToggleFeature, onDelete }) {
-  const [filter, setFilter] = useState('all');
-  const pending = media.filter(m => !m.featured);
-  const featured = media.filter(m => m.featured);
-  const shown = filter === 'all' ? media : filter === 'pending' ? pending : featured;
+  const [filter, setFilter] = useState("all");
+  const pending = media.filter((m) => !m.featured);
+  const featured = media.filter((m) => m.featured);
+  const shown =
+    filter === "all" ? media : filter === "pending" ? pending : featured;
 
   return (
     <>
       <div className="filter-tabs">
-        <button className={`filter-tab ${filter==='all'?'active':''}`} onClick={()=>setFilter('all')}>All ({media.length})</button>
-        <button className={`filter-tab ${filter==='pending'?'active':''}`} onClick={()=>setFilter('pending')}>Pending ({pending.length})</button>
-        <button className={`filter-tab ${filter==='featured'?'active':''}`} onClick={()=>setFilter('featured')}>Live on Site ({featured.length})</button>
+        <button
+          className={`filter-tab ${filter === "all" ? "active" : ""}`}
+          onClick={() => setFilter("all")}
+        >
+          All ({media.length})
+        </button>
+        <button
+          className={`filter-tab ${filter === "pending" ? "active" : ""}`}
+          onClick={() => setFilter("pending")}
+        >
+          Pending ({pending.length})
+        </button>
+        <button
+          className={`filter-tab ${filter === "featured" ? "active" : ""}`}
+          onClick={() => setFilter("featured")}
+        >
+          Live on Site ({featured.length})
+        </button>
       </div>
 
-      {loading ? <div className="loading">Loading…</div> : shown.length === 0 ? (
-        <div className="empty"><div className="empty-icon">◈</div><div className="empty-text">No submissions in this category</div></div>
+      {loading ? (
+        <div className="loading">Loading…</div>
+      ) : shown.length === 0 ? (
+        <div className="empty">
+          <div className="empty-icon">◈</div>
+          <div className="empty-text">No submissions in this category</div>
+        </div>
       ) : (
         <div className="media-admin-grid">
-          {shown.map(m => (
-            <div key={m._id} className={`media-card ${m.featured ? 'featured-card' : ''}`}>
+          {shown.map((m) => (
+            <div
+              key={m._id}
+              className={`media-card ${m.featured ? "featured-card" : ""}`}
+            >
               <div className="media-img-wrap">
                 {m.files?.[0] ? (
-                  <img src={`${API}/uploads/${m.files[0].split(/[\\/]/).pop()}`} alt={m.petName}
-                    onError={e=>{ e.target.style.display='none'; }} />
+                  <img
+                    src={
+                      m.files?.[0]
+                        ? m.files[0].startsWith("http")
+                          ? m.files[0]
+                          : `${API}${m.files[0]}`
+                        : ""
+                    }
+                    alt={m.petName}
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
+                  />
                 ) : (
-                  <div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center'}}>
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <div className="media-placeholder-icon">◈</div>
                   </div>
                 )}
                 {m.featured && <div className="media-featured-badge">Live</div>}
               </div>
               <div className="media-card-body">
-                <div className="media-pet-name">{m.petName || 'Unnamed'}</div>
-                <div className="media-breed">{m.breed || 'Breed not specified'}</div>
-                {m.caption && <div className="media-caption">"{m.caption}"</div>}
-                <div className="media-files">{m.files?.length || 0} file{m.files?.length !== 1 ? 's' : ''} uploaded · {fmt(m.submittedAt)}</div>
+                <div className="media-pet-name">{m.petName || "Unnamed"}</div>
+                <div className="media-breed">
+                  {m.breed || "Breed not specified"}
+                </div>
+                {m.caption && (
+                  <div className="media-caption">"{m.caption}"</div>
+                )}
+                <div className="media-files">
+                  {m.files?.length || 0} file{m.files?.length !== 1 ? "s" : ""}{" "}
+                  uploaded · {fmt(m.submittedAt)}
+                </div>
                 <div className="media-actions">
-                  <button className={`btn-approve ${m.featured?'active':''}`} onClick={()=>onToggleFeature(m._id, m.featured)}>
-                    {m.featured ? '✓ Featured' : '+ Feature'}
+                  <button
+                    className={`btn-approve ${m.featured ? "active" : ""}`}
+                    onClick={() => onToggleFeature(m._id, m.featured)}
+                  >
+                    {m.featured ? "✓ Featured" : "+ Feature"}
                   </button>
-                  <button className="btn-remove" onClick={()=>onDelete(m._id)}>Remove</button>
+                  <button
+                    className="btn-remove"
+                    onClick={() => onDelete(m._id)}
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             </div>
@@ -502,13 +659,21 @@ function MediaTab({ media, loading, onToggleFeature, onDelete }) {
 
 function OverviewTab({ submissions, media }) {
   const categories = {};
-  submissions.forEach(s => { if(s.petCategory) categories[s.petCategory] = (categories[s.petCategory]||0)+1; });
-  const topCats = Object.entries(categories).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  submissions.forEach((s) => {
+    if (s.petCategory)
+      categories[s.petCategory] = (categories[s.petCategory] || 0) + 1;
+  });
+  const topCats = Object.entries(categories)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
 
   const spendMap = {};
-  submissions.forEach(s => { const sp = s.lifestyle?.spend; if(sp) spendMap[sp] = (spendMap[sp]||0)+1; });
+  submissions.forEach((s) => {
+    const sp = s.lifestyle?.spend;
+    if (sp) spendMap[sp] = (spendMap[sp] || 0) + 1;
+  });
 
-  const earlyCount = submissions.filter(s=>s.earlyAccess==='yes').length;
+  const earlyCount = submissions.filter((s) => s.earlyAccess === "yes").length;
 
   return (
     <>
@@ -526,60 +691,150 @@ function OverviewTab({ submissions, media }) {
         <div className="stat-card">
           <div className="stat-label">Pet Photos</div>
           <div className="stat-num">{media.length}</div>
-          <div className="stat-sub">{media.filter(m=>m.featured).length} featured live</div>
+          <div className="stat-sub">
+            {media.filter((m) => m.featured).length} featured live
+          </div>
         </div>
         <div className="stat-card">
           <div className="stat-label">Pending Review</div>
-          <div className="stat-num">{media.filter(m=>!m.featured).length}</div>
+          <div className="stat-num">
+            {media.filter((m) => !m.featured).length}
+          </div>
           <div className="stat-sub">media submissions</div>
         </div>
       </div>
 
-      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:24}}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         <div className="table-wrap">
-          <div className="table-toolbar"><div className="toolbar-title">Top Pet Categories</div></div>
+          <div className="table-toolbar">
+            <div className="toolbar-title">Top Pet Categories</div>
+          </div>
           <table>
-            <thead><tr><th>Category</th><th>Count</th><th>Share</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Count</th>
+                <th>Share</th>
+              </tr>
+            </thead>
             <tbody>
               {topCats.map(([cat, count]) => (
                 <tr key={cat}>
                   <td className="td-name">{cat}</td>
                   <td>{count}</td>
                   <td>
-                    <div style={{display:'flex',alignItems:'center',gap:8}}>
-                      <div style={{flex:1,height:3,background:'var(--surface)'}}>
-                        <div style={{width:`${Math.round(count/submissions.length*100)}%`,height:'100%',background:'var(--gold)'}} />
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 8 }}
+                    >
+                      <div
+                        style={{
+                          flex: 1,
+                          height: 3,
+                          background: "var(--surface)",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: `${Math.round((count / submissions.length) * 100)}%`,
+                            height: "100%",
+                            background: "var(--gold)",
+                          }}
+                        />
                       </div>
-                      <span style={{fontSize:10,color:'var(--text3)',minWidth:28}}>{Math.round(count/submissions.length*100)}%</span>
+                      <span
+                        style={{
+                          fontSize: 10,
+                          color: "var(--text3)",
+                          minWidth: 28,
+                        }}
+                      >
+                        {Math.round((count / submissions.length) * 100)}%
+                      </span>
                     </div>
                   </td>
                 </tr>
               ))}
-              {topCats.length === 0 && <tr><td colSpan={3} style={{textAlign:'center',color:'var(--text3)',padding:32}}>No data yet</td></tr>}
+              {topCats.length === 0 && (
+                <tr>
+                  <td
+                    colSpan={3}
+                    style={{
+                      textAlign: "center",
+                      color: "var(--text3)",
+                      padding: 32,
+                    }}
+                  >
+                    No data yet
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
 
         <div className="table-wrap">
-          <div className="table-toolbar"><div className="toolbar-title">Spending Distribution</div></div>
+          <div className="table-toolbar">
+            <div className="toolbar-title">Spending Distribution</div>
+          </div>
           <table>
-            <thead><tr><th>Spend Range</th><th>Members</th><th>Share</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Spend Range</th>
+                <th>Members</th>
+                <th>Share</th>
+              </tr>
+            </thead>
             <tbody>
               {Object.entries(spendMap).map(([range, count]) => (
                 <tr key={range}>
                   <td className="td-name">{range}</td>
                   <td>{count}</td>
                   <td>
-                    <div style={{display:'flex',alignItems:'center',gap:8}}>
-                      <div style={{flex:1,height:3,background:'var(--surface)'}}>
-                        <div style={{width:`${Math.round(count/submissions.length*100)}%`,height:'100%',background:'var(--gold)'}} />
+                    <div
+                      style={{ display: "flex", alignItems: "center", gap: 8 }}
+                    >
+                      <div
+                        style={{
+                          flex: 1,
+                          height: 3,
+                          background: "var(--surface)",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: `${Math.round((count / submissions.length) * 100)}%`,
+                            height: "100%",
+                            background: "var(--gold)",
+                          }}
+                        />
                       </div>
-                      <span style={{fontSize:10,color:'var(--text3)',minWidth:28}}>{Math.round(count/submissions.length*100)}%</span>
+                      <span
+                        style={{
+                          fontSize: 10,
+                          color: "var(--text3)",
+                          minWidth: 28,
+                        }}
+                      >
+                        {Math.round((count / submissions.length) * 100)}%
+                      </span>
                     </div>
                   </td>
                 </tr>
               ))}
-              {Object.keys(spendMap).length === 0 && <tr><td colSpan={3} style={{textAlign:'center',color:'var(--text3)',padding:32}}>No data yet</td></tr>}
+              {Object.keys(spendMap).length === 0 && (
+                <tr>
+                  <td
+                    colSpan={3}
+                    style={{
+                      textAlign: "center",
+                      color: "var(--text3)",
+                      padding: 32,
+                    }}
+                  >
+                    No data yet
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -592,7 +847,7 @@ function OverviewTab({ submissions, media }) {
 
 export default function AdminDashboard() {
   const [authed, setAuthed] = useState(false);
-  const [tab, setTab] = useState('overview');
+  const [tab, setTab] = useState("overview");
   const [submissions, setSubmissions] = useState([]);
   const [media, setMedia] = useState([]);
   const [loadingSub, setLoadingSub] = useState(true);
@@ -600,36 +855,63 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!authed) return;
-    fetch(`${API}/api/submissions`).then(r=>r.json()).then(data=>{ setSubmissions(data); setLoadingSub(false); }).catch(()=>setLoadingSub(false));
-    fetch(`${API}/api/featured`).then(r=>r.json()).then(data=>{ setMedia(data); setLoadingMedia(false); }).catch(()=>setLoadingMedia(false));
+    fetch(`${API}/api/submissions`)
+      .then((r) => r.json())
+      .then((data) => {
+        setSubmissions(data);
+        setLoadingSub(false);
+      })
+      .catch(() => setLoadingSub(false));
+    fetch(`${API}/api/featured`)
+      .then((r) => r.json())
+      .then((data) => {
+        setMedia(data);
+        setLoadingMedia(false);
+      })
+      .catch(() => setLoadingMedia(false));
   }, [authed]);
 
   const toggleFeature = async (id, currentlyFeatured) => {
     await fetch(`${API}/api/featured/${id}/feature`, {
-      method:'PATCH',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ featured: !currentlyFeatured })
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ featured: !currentlyFeatured }),
     });
-    setMedia(prev => prev.map(m => m._id === id ? { ...m, featured: !currentlyFeatured } : m));
+    setMedia((prev) =>
+      prev.map((m) =>
+        m._id === id ? { ...m, featured: !currentlyFeatured } : m,
+      ),
+    );
   };
 
   const deleteMedia = async (id) => {
-    if (!window.confirm('Remove this submission?')) return;
-    await fetch(`${API}/api/featured/${id}`, { method:'DELETE' });
-    setMedia(prev => prev.filter(m => m._id !== id));
+    if (!window.confirm("Remove this submission?")) return;
+    await fetch(`${API}/api/featured/${id}`, { method: "DELETE" });
+    setMedia((prev) => prev.filter((m) => m._id !== id));
   };
 
-  if (!authed) return (
-    <>
-      <style>{css}</style>
-      <Login onLogin={()=>setAuthed(true)} />
-    </>
-  );
+  if (!authed)
+    return (
+      <>
+        <style>{css}</style>
+        <Login onLogin={() => setAuthed(true)} />
+      </>
+    );
 
   const navItems = [
-    { id:'overview', icon:'◈', label:'Overview' },
-    { id:'submissions', icon:'◇', label:'Submissions', badge: submissions.length },
-    { id:'media', icon:'◉', label:'Media', badge: media.filter(m=>!m.featured).length || null },
+    { id: "overview", icon: "◈", label: "Overview" },
+    {
+      id: "submissions",
+      icon: "◇",
+      label: "Submissions",
+      badge: submissions.length,
+    },
+    {
+      id: "media",
+      icon: "◉",
+      label: "Media",
+      badge: media.filter((m) => !m.featured).length || null,
+    },
   ];
 
   return (
@@ -642,8 +924,12 @@ export default function AdminDashboard() {
             <div className="sidebar-logo-tag">Admin Portal</div>
           </div>
           <nav className="sidebar-nav">
-            {navItems.map(n => (
-              <div key={n.id} className={`nav-item ${tab===n.id?'active':''}`} onClick={()=>setTab(n.id)}>
+            {navItems.map((n) => (
+              <div
+                key={n.id}
+                className={`nav-item ${tab === n.id ? "active" : ""}`}
+                onClick={() => setTab(n.id)}
+              >
                 <span className="nav-icon">{n.icon}</span>
                 <span>{n.label}</span>
                 {n.badge ? <span className="nav-badge">{n.badge}</span> : null}
@@ -651,7 +937,9 @@ export default function AdminDashboard() {
             ))}
           </nav>
           <div className="sidebar-footer">
-            <button className="logout-btn" onClick={()=>setAuthed(false)}>Sign Out →</button>
+            <button className="logout-btn" onClick={() => setAuthed(false)}>
+              Sign Out →
+            </button>
           </div>
         </aside>
 
@@ -659,13 +947,28 @@ export default function AdminDashboard() {
           <div className="page-header">
             <div className="page-eyebrow">Admin Portal</div>
             <div className="page-title">
-              {tab === 'overview' ? 'Dashboard Overview' : tab === 'submissions' ? 'Member Submissions' : 'Media Showcase'}
+              {tab === "overview"
+                ? "Dashboard Overview"
+                : tab === "submissions"
+                  ? "Member Submissions"
+                  : "Media Showcase"}
             </div>
           </div>
 
-          {tab === 'overview' && <OverviewTab submissions={submissions} media={media} />}
-          {tab === 'submissions' && <SubmissionsTab submissions={submissions} loading={loadingSub} />}
-          {tab === 'media' && <MediaTab media={media} loading={loadingMedia} onToggleFeature={toggleFeature} onDelete={deleteMedia} />}
+          {tab === "overview" && (
+            <OverviewTab submissions={submissions} media={media} />
+          )}
+          {tab === "submissions" && (
+            <SubmissionsTab submissions={submissions} loading={loadingSub} />
+          )}
+          {tab === "media" && (
+            <MediaTab
+              media={media}
+              loading={loadingMedia}
+              onToggleFeature={toggleFeature}
+              onDelete={deleteMedia}
+            />
+          )}
         </main>
       </div>
     </>
