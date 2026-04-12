@@ -1304,7 +1304,7 @@ export default function App() {
           img: m.files?.[0]
             ? m.files[0].startsWith("http")
               ? m.files[0]
-              : `${import.meta.env.VITE_API_URL}${m.files[0]}`
+              : `${import.meta.env.VITE_API_URL}/${m.files[0].replace(/^\/+/, "")}`
             : null,
         }));
         setMediaItems(items);
