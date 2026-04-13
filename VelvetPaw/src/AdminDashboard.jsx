@@ -226,35 +226,53 @@ const css = `
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const isVideo = (url) => url && /\.(mp4|mov|webm|avi)([?#]|$)/i.test(url);
 
-// const getImage = (file) => {
-//   if (!file) return "";
-
-//   if (file.startsWith("http")) return file;
-
-//   if (!file.startsWith("/")) file = "/" + file;
-
-//   return `${API}${file}`;
-// };
-
-
 const MediaPreview = ({ url, alt }) => {
-  if (!url) return (
-    <div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center'}}>
-      <div className="media-placeholder-icon">◈</div>
-    </div>
-  );
-  if (isVideo(url)) return (
-    <video src={url} controls muted playsInline
-      style={{width:'100%',height:'100%',objectFit:'cover',display:'block',background:'#000'}} />
-  );
+  if (!url)
+    return (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div className="media-placeholder-icon">◈</div>
+      </div>
+    );
+  if (isVideo(url))
+    return (
+      <video
+        src={url}
+        controls
+        muted
+        playsInline
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+          background: "#000",
+        }}
+      />
+    );
   return (
-    <img src={url} alt={alt}
-      style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}}
-      onError={e=>{ e.target.style.display='none'; }} />
+    <img
+      src={url}
+      alt={alt}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        display: "block",
+      }}
+      onError={(e) => {
+        e.target.style.display = "none";
+      }}
+    />
   );
 };
-
-
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -280,29 +298,6 @@ function DetailRow({ label, value }) {
 }
 
 // ─── Login ───────────────────────────────────────────────────────────────────
-
-// function Login({ onLogin }) {
-//   const [pw, setPw] = useState('');
-//   const [err, setErr] = useState('');
-//   const submit = () => {
-//     if (pw === ADMIN_PASSWORD) onLogin();
-//     else setErr('Incorrect password. Try again.');
-//   };
-//   return (
-//     <div className="login-wrap">
-//       <div className="login-box">
-//         <div className="login-logo">VelvetPaw</div>
-//         <div className="login-sub">Admin Portal</div>
-//         <label className="login-label">Admin Password</label>
-//         <input className="login-input" type="password" placeholder="Enter password"
-//           value={pw} onChange={e=>setPw(e.target.value)}
-//           onKeyDown={e=>e.key==='Enter'&&submit()} />
-//         <button className="login-btn" onClick={submit}>Enter Dashboard →</button>
-//         {err && <div className="login-error">{err}</div>}
-//       </div>
-//     </div>
-//   );
-// }
 
 function Login({ onLogin }) {
   const [pw, setPw] = useState("");
@@ -358,6 +353,68 @@ function Login({ onLogin }) {
 
 // ─── Submissions Tab ──────────────────────────────────────────────────────────
 
+// -----------------------------------------------TEst-------------------------------
+
+function downloadCSV(submissions) {
+  const headers = [
+    "Name",
+    "Email",
+    "Phone",
+    "City",
+    "Multiple Pets",
+    "Vacation",
+    "Food",
+    "Monthly Spend",
+    "Car Setup",
+    "Past Purchases",
+    "Pet Phrase",
+    "Doorbell",
+    "Restaurant",
+    "Home Design",
+    "Splurge",
+    "Off-Leash Worry",
+    "Guest Management",
+    "Pet Category",
+    "Early Access",
+    "Submitted",
+  ];
+
+  const rows = submissions.map((s) =>
+    [
+      s.contact?.name || "",
+      s.contact?.email || "",
+      s.contact?.phone || "",
+      s.contact?.city || "",
+      s.contact?.multiple || "",
+      s.lifestyle?.vacation || "",
+      s.lifestyle?.food || "",
+      s.lifestyle?.spend || "",
+      s.lifestyle?.car || "",
+      (s.lifestyle?.purchases || []).join(" | "),
+      s.personality?.phrase || "",
+      s.personality?.doorbell || "",
+      s.personality?.restaurant || "",
+      s.personality?.design || "",
+      s.personality?.splurge || "",
+      s.products?.offleash || "",
+      s.products?.guests || "",
+      s.petCategory || "",
+      s.earlyAccess || "",
+      s.submittedAt ? new Date(s.submittedAt).toLocaleDateString("en-IN") : "",
+    ].map((val) => `"${String(val).replace(/"/g, '""')}"`),
+  );
+
+  const csv = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `velvetpaw-submissions-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// -----------------------------------------------------------------------------------
 function SubmissionsTab({ submissions, loading }) {
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
@@ -396,13 +453,44 @@ function SubmissionsTab({ submissions, loading }) {
       <div className="table-wrap">
         <div className="table-toolbar">
           <div className="toolbar-title">Member Submissions</div>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <input
+              className="search-input"
+              placeholder="Search by name, email, city…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <button
+              onClick={() => downloadCSV(submissions)}
+              disabled={submissions.length === 0}
+              style={{
+                background: "rgba(196,160,74,0.15)",
+                border: "0.5px solid rgba(196,160,74,0.4)",
+                color: "var(--gold)",
+                fontFamily: "'Jost', sans-serif",
+                fontSize: 9,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                padding: "8px 16px",
+                cursor: submissions.length === 0 ? "not-allowed" : "pointer",
+                opacity: submissions.length === 0 ? 0.4 : 1,
+                whiteSpace: "nowrap",
+                transition: "all 0.25s",
+              }}
+            >
+              ↓ Export CSV
+            </button>
+          </div>
+        </div>
+        {/* <div className="table-toolbar">
+          <div className="toolbar-title">Member Submissions</div>
           <input
             className="search-input"
             placeholder="Search by name, email, city…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-        </div>
+        </div> */}
         {loading ? (
           <div className="loading">Loading…</div>
         ) : filtered.length === 0 ? (
@@ -578,46 +666,87 @@ function SubmissionsTab({ submissions, loading }) {
 // ─── Media Tab ────────────────────────────────────────────────────────────────
 
 function MediaTab({ media, loading, onToggleFeature, onDelete }) {
-  const [filter, setFilter] = useState('all');
-  const pending = media.filter(m => !m.featured);
-  const featured = media.filter(m => m.featured);
-  const shown = filter === 'all' ? media : filter === 'pending' ? pending : featured;
+  const [filter, setFilter] = useState("all");
+  const pending = media.filter((m) => !m.featured);
+  const featured = media.filter((m) => m.featured);
+  const shown =
+    filter === "all" ? media : filter === "pending" ? pending : featured;
 
   return (
     <>
       <div className="filter-tabs">
-        <button className={`filter-tab ${filter==='all'?'active':''}`} onClick={()=>setFilter('all')}>All ({media.length})</button>
-        <button className={`filter-tab ${filter==='pending'?'active':''}`} onClick={()=>setFilter('pending')}>Pending ({pending.length})</button>
-        <button className={`filter-tab ${filter==='featured'?'active':''}`} onClick={()=>setFilter('featured')}>Live on Site ({featured.length})</button>
+        <button
+          className={`filter-tab ${filter === "all" ? "active" : ""}`}
+          onClick={() => setFilter("all")}
+        >
+          All ({media.length})
+        </button>
+        <button
+          className={`filter-tab ${filter === "pending" ? "active" : ""}`}
+          onClick={() => setFilter("pending")}
+        >
+          Pending ({pending.length})
+        </button>
+        <button
+          className={`filter-tab ${filter === "featured" ? "active" : ""}`}
+          onClick={() => setFilter("featured")}
+        >
+          Live on Site ({featured.length})
+        </button>
       </div>
 
-      {loading ? <div className="loading">Loading…</div> : shown.length === 0 ? (
-        <div className="empty"><div className="empty-icon">◈</div><div className="empty-text">No submissions in this category</div></div>
+      {loading ? (
+        <div className="loading">Loading…</div>
+      ) : shown.length === 0 ? (
+        <div className="empty">
+          <div className="empty-icon">◈</div>
+          <div className="empty-text">No submissions in this category</div>
+        </div>
       ) : (
         <div className="media-admin-grid">
-          {shown.map(m => (
-            <div key={m._id} className={`media-card ${m.featured ? 'featured-card' : ''}`}>
+          {shown.map((m) => (
+            <div
+              key={m._id}
+              className={`media-card ${m.featured ? "featured-card" : ""}`}
+            >
               <div className="media-img-wrap">
                 <MediaPreview
-                  url={m.files?.[0]
-                    ? m.files[0].startsWith('http')
-                      ? m.files[0]
-                      : `${API}/${m.files[0].replace(/^\/+/, '')}`
-                    : null}
+                  url={
+                    m.files?.[0]
+                      ? m.files[0].startsWith("http")
+                        ? m.files[0]
+                        : `${API}/${m.files[0].replace(/^\/+/, "")}`
+                      : null
+                  }
                   alt={m.petName}
                 />
                 {m.featured && <div className="media-featured-badge">Live</div>}
               </div>
               <div className="media-card-body">
-                <div className="media-pet-name">{m.petName || 'Unnamed'}</div>
-                <div className="media-breed">{m.breed || 'Breed not specified'}</div>
-                {m.caption && <div className="media-caption">"{m.caption}"</div>}
-                <div className="media-files">{m.files?.length || 0} file{m.files?.length !== 1 ? 's' : ''} uploaded · {fmt(m.submittedAt)}</div>
+                <div className="media-pet-name">{m.petName || "Unnamed"}</div>
+                <div className="media-breed">
+                  {m.breed || "Breed not specified"}
+                </div>
+                {m.caption && (
+                  <div className="media-caption">"{m.caption}"</div>
+                )}
+                <div className="media-files">
+                  {m.files?.length || 0} file{m.files?.length !== 1 ? "s" : ""}{" "}
+                  uploaded · {fmt(m.submittedAt)}
+                </div>
                 <div className="media-actions">
-                  <button className={`btn-approve ${m.featured?'active':''}`} onClick={()=>onToggleFeature(m._id, m.featured)}>
-                    {m.featured ? '✓ Featured' : '+ Feature'}
+                  <button
+                    className={`btn-approve ${m.featured ? "active" : ""}`}
+                    onClick={() => onToggleFeature(m._id, m.featured)}
+                  >
+                    {m.featured ? "✓ Featured" : "+ Feature"}
                   </button>
-                  <button className="btn-remove" onClick={()=>onDelete(m._id)}>Remove</button>
+                  <button
+                    className="btn-remove"
+                    onClick={() => onDelete(m._id)}
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             </div>
@@ -627,7 +756,6 @@ function MediaTab({ media, loading, onToggleFeature, onDelete }) {
     </>
   );
 }
-
 
 // ─── Overview Tab ─────────────────────────────────────────────────────────────
 
