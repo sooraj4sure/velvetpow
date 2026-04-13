@@ -1689,11 +1689,13 @@ export default function App() {
                 </div>
               ))}
             </div>
+            <br />
             <button
               className="btn-primary"
               onClick={() => setFeaturedOpen(true)}
             >
               Submit Your Pet →
+            
             </button>
           </div>
           <div className="fade-in">
