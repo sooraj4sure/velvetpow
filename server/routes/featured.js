@@ -25,9 +25,18 @@ console.log("Cloudinary config:", {
 
 
 
+// const storage = new CloudinaryStorage({
+//   cloudinary,
+//   params: { folder: 'velvetpaw', allowed_formats: ['jpg','jpeg','png','webp','mp4','mov'] },
+// });
+
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: { folder: 'velvetpaw', allowed_formats: ['jpg','jpeg','png','webp','mp4','mov'] },
+  params: {
+    folder: 'velvetpaw',
+    resource_type: 'auto',  // handles images AND videos
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'mp4', 'mov'],
+  },
 });
 
 const upload = multer({ storage });
