@@ -224,16 +224,37 @@ const css = `
 
 // const API = 'http://localhost:5000';
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const isVideo = (url) => url && /\.(mp4|mov|webm|avi)([?#]|$)/i.test(url);
 
-const getImage = (file) => {
-  if (!file) return "";
+// const getImage = (file) => {
+//   if (!file) return "";
 
-  if (file.startsWith("http")) return file;
+//   if (file.startsWith("http")) return file;
 
-  if (!file.startsWith("/")) file = "/" + file;
+//   if (!file.startsWith("/")) file = "/" + file;
 
-  return `${API}${file}`;
+//   return `${API}${file}`;
+// };
+
+
+const MediaPreview = ({ url, alt }) => {
+  if (!url) return (
+    <div style={{width:'100%',height:'100%',display:'flex',alignItems:'center',justifyContent:'center'}}>
+      <div className="media-placeholder-icon">◈</div>
+    </div>
+  );
+  if (isVideo(url)) return (
+    <video src={url} controls muted playsInline
+      style={{width:'100%',height:'100%',objectFit:'cover',display:'block',background:'#000'}} />
+  );
+  return (
+    <img src={url} alt={alt}
+      style={{width:'100%',height:'100%',objectFit:'cover',display:'block'}}
+      onError={e=>{ e.target.style.display='none'; }} />
+  );
 };
+
+
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -557,104 +578,46 @@ function SubmissionsTab({ submissions, loading }) {
 // ─── Media Tab ────────────────────────────────────────────────────────────────
 
 function MediaTab({ media, loading, onToggleFeature, onDelete }) {
-  const [filter, setFilter] = useState("all");
-  const pending = media.filter((m) => !m.featured);
-  const featured = media.filter((m) => m.featured);
-  const shown =
-    filter === "all" ? media : filter === "pending" ? pending : featured;
+  const [filter, setFilter] = useState('all');
+  const pending = media.filter(m => !m.featured);
+  const featured = media.filter(m => m.featured);
+  const shown = filter === 'all' ? media : filter === 'pending' ? pending : featured;
 
   return (
     <>
       <div className="filter-tabs">
-        <button
-          className={`filter-tab ${filter === "all" ? "active" : ""}`}
-          onClick={() => setFilter("all")}
-        >
-          All ({media.length})
-        </button>
-        <button
-          className={`filter-tab ${filter === "pending" ? "active" : ""}`}
-          onClick={() => setFilter("pending")}
-        >
-          Pending ({pending.length})
-        </button>
-        <button
-          className={`filter-tab ${filter === "featured" ? "active" : ""}`}
-          onClick={() => setFilter("featured")}
-        >
-          Live on Site ({featured.length})
-        </button>
+        <button className={`filter-tab ${filter==='all'?'active':''}`} onClick={()=>setFilter('all')}>All ({media.length})</button>
+        <button className={`filter-tab ${filter==='pending'?'active':''}`} onClick={()=>setFilter('pending')}>Pending ({pending.length})</button>
+        <button className={`filter-tab ${filter==='featured'?'active':''}`} onClick={()=>setFilter('featured')}>Live on Site ({featured.length})</button>
       </div>
 
-      {loading ? (
-        <div className="loading">Loading…</div>
-      ) : shown.length === 0 ? (
-        <div className="empty">
-          <div className="empty-icon">◈</div>
-          <div className="empty-text">No submissions in this category</div>
-        </div>
+      {loading ? <div className="loading">Loading…</div> : shown.length === 0 ? (
+        <div className="empty"><div className="empty-icon">◈</div><div className="empty-text">No submissions in this category</div></div>
       ) : (
         <div className="media-admin-grid">
-          {shown.map((m) => (
-            <div
-              key={m._id}
-              className={`media-card ${m.featured ? "featured-card" : ""}`}
-            >
+          {shown.map(m => (
+            <div key={m._id} className={`media-card ${m.featured ? 'featured-card' : ''}`}>
               <div className="media-img-wrap">
-                {m.files?.[0] ? (
-                  <img
-                    src={
-                      m.files?.[0]
-                        ? m.files[0].startsWith("http")
-                          ? m.files[0]
-                          : `${API}/${m.files[0].replace(/^\/+/, "")}`
-                        : ""
-                    }
-                    alt={m.petName}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
-                  />
-                ) : (
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <div className="media-placeholder-icon">◈</div>
-                  </div>
-                )}
+                <MediaPreview
+                  url={m.files?.[0]
+                    ? m.files[0].startsWith('http')
+                      ? m.files[0]
+                      : `${API}/${m.files[0].replace(/^\/+/, '')}`
+                    : null}
+                  alt={m.petName}
+                />
                 {m.featured && <div className="media-featured-badge">Live</div>}
               </div>
               <div className="media-card-body">
-                <div className="media-pet-name">{m.petName || "Unnamed"}</div>
-                <div className="media-breed">
-                  {m.breed || "Breed not specified"}
-                </div>
-                {m.caption && (
-                  <div className="media-caption">"{m.caption}"</div>
-                )}
-                <div className="media-files">
-                  {m.files?.length || 0} file{m.files?.length !== 1 ? "s" : ""}{" "}
-                  uploaded · {fmt(m.submittedAt)}
-                </div>
+                <div className="media-pet-name">{m.petName || 'Unnamed'}</div>
+                <div className="media-breed">{m.breed || 'Breed not specified'}</div>
+                {m.caption && <div className="media-caption">"{m.caption}"</div>}
+                <div className="media-files">{m.files?.length || 0} file{m.files?.length !== 1 ? 's' : ''} uploaded · {fmt(m.submittedAt)}</div>
                 <div className="media-actions">
-                  <button
-                    className={`btn-approve ${m.featured ? "active" : ""}`}
-                    onClick={() => onToggleFeature(m._id, m.featured)}
-                  >
-                    {m.featured ? "✓ Featured" : "+ Feature"}
+                  <button className={`btn-approve ${m.featured?'active':''}`} onClick={()=>onToggleFeature(m._id, m.featured)}>
+                    {m.featured ? '✓ Featured' : '+ Feature'}
                   </button>
-                  <button
-                    className="btn-remove"
-                    onClick={() => onDelete(m._id)}
-                  >
-                    Remove
-                  </button>
+                  <button className="btn-remove" onClick={()=>onDelete(m._id)}>Remove</button>
                 </div>
               </div>
             </div>
@@ -664,6 +627,7 @@ function MediaTab({ media, loading, onToggleFeature, onDelete }) {
     </>
   );
 }
+
 
 // ─── Overview Tab ─────────────────────────────────────────────────────────────
 

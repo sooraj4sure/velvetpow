@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap');`;
-
+const isVideo = (url) => url && /\.(mp4|mov|webm|avi)([?#]|$)/i.test(url); 
 const css = `
   ${FONTS}
 
@@ -1505,13 +1505,13 @@ export default function App() {
             style={{
               textAlign: "center",
               padding: "80px 24px",
-              border: "0.5px solid rgba(196,160,74,0.1)",
+              border: "0.5px solid rgba(160,120,40,0.15)",
             }}
           >
             <div
               style={{
                 fontSize: 36,
-                color: "rgba(196,160,74,0.15)",
+                color: "rgba(160,120,40,0.2)",
                 marginBottom: 16,
               }}
             >
@@ -1540,49 +1540,68 @@ export default function App() {
                 className={`media-item ${item.featured ? "featured" : ""}`}
               >
                 {item.img ? (
-                  <img
-                    src={item.img}
-                    alt={item.name}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                      filter: "brightness(0.88) saturate(0.85)",
-                    }}
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                      e.target.nextSibling.style.display = "flex";
-                    }}
-                  />
-                ) : null}
-                {/* Fallback if image fails to load */}
-                <div
-                  style={{
-                    display: item.img ? "none" : "flex",
-                    width: "100%",
-                    height: "100%",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                    gap: 8,
-                    background: "var(--surface)",
-                  }}
-                >
-                  <div style={{ fontSize: 32, color: "rgba(196,160,74,0.2)" }}>
-                    ◈
-                  </div>
+                  isVideo(item.img) ? (
+                    <video
+                      src={item.img}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        filter: "brightness(0.88) saturate(0.85)",
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={item.img}
+                      alt={item.name}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        filter: "brightness(0.88) saturate(0.85)",
+                      }}
+                      onError={(e) => {
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.display = "flex";
+                      }}
+                    />
+                  )
+                ) : (
                   <div
                     style={{
-                      fontSize: 10,
-                      letterSpacing: "0.2em",
-                      textTransform: "uppercase",
-                      color: "var(--text3)",
+                      display: "flex",
+                      width: "100%",
+                      height: "100%",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexDirection: "column",
+                      gap: 8,
+                      background: "var(--surface)",
                     }}
                   >
-                    {item.name}
+                    <div
+                      style={{ fontSize: 32, color: "rgba(160,120,40,0.2)" }}
+                    >
+                      ◈
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 10,
+                        letterSpacing: "0.2em",
+                        textTransform: "uppercase",
+                        color: "var(--text3)",
+                      }}
+                    >
+                      {item.name}
+                    </div>
                   </div>
-                </div>
+                )}
                 <div
                   className="media-item-overlay"
                   style={{
