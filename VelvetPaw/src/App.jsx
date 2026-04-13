@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap');`;
-const isVideo = (url) => url && /\.(mp4|mov|webm|avi)([?#]|$)/i.test(url); 
+const isVideo = (url) => url && /\.(mp4|mov|webm|avi)([?#]|$)/i.test(url);
 const css = `
   ${FONTS}
 
@@ -1102,8 +1102,6 @@ function FinishStep({
 
 // ─── Get Featured Modal ──────────────────────────────────────────────────────
 
-
-
 function FeaturedModal({ open, onClose }) {
   const [files, setFiles] = useState([]);
   const [petName, setPetName] = useState("");
@@ -1128,9 +1126,9 @@ function FeaturedModal({ open, onClose }) {
     files.forEach((f) => fd.append("media", f.file));
 
     // Temp debug — check FormData has files
-  for (let [key, val] of fd.entries()) {
-    console.log(key, val);
-  }
+    for (let [key, val] of fd.entries()) {
+      console.log(key, val);
+    }
     try {
       // POST to /api/featured with multipart form
       await fetch(`${import.meta.env.VITE_API_URL}/api/featured`, {
@@ -1469,6 +1467,8 @@ export default function App() {
             justifyContent: "space-between",
             alignItems: "flex-end",
             marginBottom: 48,
+            flexWrap: "wrap", //  change on container
+            gap: 24, // spacing when button wraps
           }}
         >
           <div>
@@ -1482,7 +1482,7 @@ export default function App() {
           <button
             className="btn-ghost"
             onClick={() => setFeaturedOpen(true)}
-            style={{ whiteSpace: "nowrap" }}
+            // removed whiteSpace:"nowrap" so it can wrap naturally
           >
             Submit Your Pet →
           </button>
@@ -1689,13 +1689,11 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <br />
             <button
               className="btn-primary"
               onClick={() => setFeaturedOpen(true)}
             >
               Submit Your Pet →
-            
             </button>
           </div>
           <div className="fade-in">
